@@ -1,0 +1,4982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>congratulations!!! you have been selected!!!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arial+Black&family=Comic+Neue:wght@700&family=Roboto:wght@400;900&family=Times+New+Roman&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+            font-size: 12px;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 30% 20%, #ff000044 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 80%, #00ff0044 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, #ffff0033 0%, transparent 50%),
+                #000;
+            z-index: -1;
+        }
+
+        /* top warning bar */
+        .warning-bar {
+            background: #ff0000;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+            text-transform: lowercase;
+            animation: flashBg 0.5s infinite;
+        }
+
+        @keyframes flashBg {
+            0%, 100% { background: #ff0000; }
+            50% { background: #cc0000; }
+        }
+
+        /* visitor counter */
+        .visitor-bar {
+            background: linear-gradient(90deg, #ffff00, #ff6600, #ffff00);
+            background-size: 200% 100%;
+            animation: gradientMove 2s linear infinite;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 16px;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* main alert box */
+        .main-alert {
+            background: linear-gradient(180deg, #001a00, #000);
+            border: 5px solid #00ff00;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            animation: borderPulse 1s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: #00ff00; box-shadow: 0 0 30px #00ff0066; }
+            50% { border-color: #00cc00; box-shadow: 0 0 50px #00ff0099; }
+        }
+
+        .main-alert h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: #00ff00;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+            animation: textPulse 0.5s infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .main-alert p {
+            color: #ffff00;
+            font-size: 1.2rem;
+        }
+
+        .blink {
+            animation: blink 0.3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* countdown section */
+        .countdown-box {
+            background: #ff0000;
+            border: 4px dashed #ffff00;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .countdown-box h2 {
+            color: #ffff00;
+            font-size: 1.3rem;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            font-family: monospace;
+            text-shadow: 0 0 20px #fff;
+        }
+
+        /* spin wheel section */
+        .wheel-section {
+            background: linear-gradient(135deg, #1a1a00, #000);
+            border: 4px solid #ffff00;
+            padding: 40px 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .wheel-section h2 {
+            color: #ffff00;
+            font-size: 1.8rem;
+            text-transform: lowercase;
+            margin-bottom: 10px;
+        }
+
+        .wheel-section p {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .wheel-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .wheel {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            background: conic-gradient(
+                #ff0000 0deg 45deg,
+                #00ff00 45deg 90deg,
+                #0000ff 90deg 135deg,
+                #ffff00 135deg 180deg,
+                #ff00ff 180deg 225deg,
+                #00ffff 225deg 270deg,
+                #ff6600 270deg 315deg,
+                #ffffff 315deg 360deg
+            );
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.05, 0.99);
+            box-shadow: 0 0 40px #ffff0066;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff0000;
+            z-index: 10;
+        }
+
+        .spin-btn {
+            margin-top: 30px;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            border: 4px solid #fff;
+            cursor: pointer;
+            text-transform: lowercase;
+            animation: btnPulse 0.5s infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .spin-btn:hover {
+            background: linear-gradient(180deg, #ffff00, #cc9900);
+        }
+
+        .wheel-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #00ff00;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* live feed */
+        .live-feed {
+            background: #111;
+            border: 3px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .live-feed h3 {
+            color: #00ff00;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .feed-item {
+            padding: 8px 10px;
+            margin: 5px 0;
+            background: #0a0a0a;
+            border-left: 3px solid #00ff00;
+            color: #ccc;
+            font-size: 0.9rem;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .feed-item .name {
+            color: #ffff00;
+            font-weight: bold;
+        }
+
+        .feed-item .action {
+            color: #00ff00;
+        }
+
+        .feed-item .time {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* claim buttons */
+        .claim-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .claim-box {
+            background: linear-gradient(135deg, #1a0000, #000);
+            border: 3px solid #ff0000;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .claim-box::before {
+            content: 'free';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: #ff0000;
+            color: #fff;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+        }
+
+        .claim-box h3 {
+            color: #ff6600;
+            font-size: 1.3rem;
+            text-transform: lowercase;
+            margin-bottom: 10px;
+        }
+
+        .claim-box p {
+            color: #999;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            color: #ff0000;
+            text-decoration: line-through;
+            font-size: 1.5rem;
+        }
+
+        .new-price {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px #00ff00;
+        }
+
+        .claim-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background: linear-gradient(180deg, #ff6600, #cc3300);
+            color: #fff;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .claim-btn:hover {
+            background: linear-gradient(180deg, #ffff00, #ff6600);
+            color: #000;
+        }
+
+        .stock-warning {
+            color: #ff0000;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            animation: blink 0.5s infinite;
+        }
+
+        /* trust badges */
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: #0a0a0a;
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+
+        .trust-badge {
+            background: #111;
+            border: 2px solid #444;
+            padding: 10px 20px;
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: lowercase;
+        }
+
+        /* popup notification */
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #003300, #001a00);
+            border: 3px solid #00ff00;
+            padding: 15px 20px;
+            max-width: 320px;
+            z-index: 1000;
+            animation: popupSlide 0.5s ease-out;
+            box-shadow: 0 0 30px #00ff0044;
+        }
+
+        @keyframes popupSlide {
+            0% { transform: translateX(-400px); }
+            100% { transform: translateX(0); }
+        }
+
+        .popup p {
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 3px 0;
+        }
+
+        .popup .highlight {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        /* bottom bar */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ff0000;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+            text-transform: lowercase;
+            z-index: 999;
+        }
+
+        /* security popup */
+        .security-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .security-box {
+            background: linear-gradient(180deg, #1a1a00, #000);
+            border: 5px solid #ffff00;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .security-box h2 {
+            color: #ffff00;
+            text-transform: lowercase;
+            margin-bottom: 20px;
+        }
+
+        .security-box p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .security-box button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        .online-count {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #ff0000;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            z-index: 100;
+            animation: countPulse 1s infinite;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #111;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            padding: 12px 25px;
+            background: linear-gradient(180deg, #333, #111);
+            color: #00ff00;
+            text-decoration: none;
+            border: 2px solid #00ff00;
+            font-weight: bold;
+            text-transform: lowercase;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* fake chat support */
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 300px;
+            background: linear-gradient(180deg, #1a3300, #0a1a00);
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            z-index: 1500;
+            box-shadow: 0 0 30px #00ff0044;
+            animation: chatBounce 2s infinite;
+        }
+
+        @keyframes chatBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .chat-header {
+            background: #00ff00;
+            color: #000;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 7px 7px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-header .status::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-body {
+            padding: 15px;
+            max-height: 200px;
+        }
+
+        .chat-message {
+            background: #0a0a0a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .chat-message.agent {
+            border-left: 3px solid #00ff00;
+        }
+
+        .chat-typing {
+            color: #00ff00;
+            font-size: 0.85rem;
+            padding: 5px 0;
+        }
+
+        .chat-typing span {
+            animation: typingDot 1.4s infinite;
+        }
+
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { opacity: 0; }
+            30% { opacity: 1; }
+        }
+
+        /* exit intent popup */
+        .exit-popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,0,0,0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            animation: exitShake 0.5s;
+        }
+
+        @keyframes exitShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .exit-box {
+            background: #000;
+            border: 6px solid #ffff00;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            animation: exitPulse 0.5s infinite;
+        }
+
+        @keyframes exitPulse {
+            0%, 100% { box-shadow: 0 0 50px #ffff00; }
+            50% { box-shadow: 0 0 100px #ff0000; }
+        }
+
+        .exit-box h2 {
+            color: #ff0000;
+            font-size: 2rem;
+            text-transform: lowercase;
+            margin-bottom: 20px;
+            animation: textPulse 0.3s infinite;
+        }
+
+        .exit-box p {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .exit-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exit-stay {
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: lowercase;
+            animation: btnPulse 0.3s infinite;
+        }
+
+        .exit-leave {
+            padding: 10px 20px;
+            font-size: 0.7rem;
+            background: transparent;
+            color: #666;
+            border: 1px solid #333;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* virus warning */
+        .virus-warning {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(180deg, #1a0000, #000);
+            border: 5px solid #ff0000;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            z-index: 2500;
+            text-align: center;
+            animation: virusShake 0.1s infinite;
+        }
+
+        @keyframes virusShake {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(1deg); }
+            75% { transform: translate(-50%, -50%) rotate(-1deg); }
+        }
+
+        .virus-warning h2 {
+            color: #ff0000;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            animation: blink 0.3s infinite;
+        }
+
+        .virus-warning .virus-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .virus-warning p {
+            color: #ffff00;
+            margin-bottom: 20px;
+        }
+
+        .virus-warning button {
+            padding: 15px 40px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* confirm shaming modal */
+        .shame-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2800;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shame-box {
+            background: linear-gradient(180deg, #001a00, #000);
+            border: 4px solid #00ff00;
+            padding: 40px;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .shame-box h2 {
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .shame-box p {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .shame-yes {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .shame-no {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            color: #666;
+            border: 1px solid #333;
+            font-size: 0.7rem;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* fake location detection */
+        .location-banner {
+            background: linear-gradient(90deg, #ff6600, #ff0000, #ff6600);
+            background-size: 200% 100%;
+            animation: gradientMove 2s linear infinite;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .location-banner span {
+            color: #ffff00;
+            text-decoration: underline;
+        }
+
+        /* fake testimonials */
+        .testimonials {
+            background: #0a0a0a;
+            border: 3px solid #ffff00;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .testimonials h3 {
+            color: #ffff00;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .testimonial {
+            background: #111;
+            border: 2px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6600, #ff0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .testimonial-name {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .testimonial-verified {
+            color: #00ff00;
+            font-size: 0.75rem;
+        }
+
+        .testimonial-stars {
+            color: #ffff00;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: #ccc;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* scanning animation */
+        .scan-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2600;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scan-box {
+            background: #000;
+            border: 4px solid #00ff00;
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .scan-box h2 {
+            color: #00ff00;
+            text-transform: lowercase;
+            margin-bottom: 20px;
+        }
+
+        .scan-progress {
+            width: 100%;
+            height: 30px;
+            background: #111;
+            border: 2px solid #00ff00;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .scan-text {
+            color: #ffff00;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .scan-result {
+            color: #00ff00;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* ip warning banner */
+        .ip-warning {
+            background: #111;
+            border: 2px solid #ff0000;
+            padding: 12px;
+            margin: 20px 0;
+            text-align: center;
+            color: #ff6600;
+            font-family: monospace;
+        }
+
+        .ip-warning span {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        /* slots remaining */
+        .slots-remaining {
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border: 3px dashed #ffff00;
+        }
+
+        .slots-remaining h3 {
+            color: #ffff00;
+            font-size: 1.3rem;
+            text-transform: lowercase;
+            animation: textPulse 0.5s infinite;
+        }
+
+        .slots-remaining .slots-num {
+            font-size: 3rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 0 0 20px #fff;
+        }
+
+        /* notification permission fake */
+        .notif-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #000;
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            z-index: 2700;
+            max-width: 400px;
+        }
+
+        .notif-popup h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .notif-popup p {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .notif-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .notif-allow {
+            padding: 8px 20px;
+            background: #0066ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .notif-block {
+            padding: 8px 20px;
+            background: #eee;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* fake social proof comments */
+        .social-comments {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .social-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .social-header .fb-icon {
+            width: 30px;
+            height: 30px;
+            background: #1877f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .social-header span {
+            color: #1877f2;
+            font-weight: bold;
+        }
+
+        .social-comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .social-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .social-content {
+            background: #f0f2f5;
+            padding: 10px 15px;
+            border-radius: 18px;
+            flex: 1;
+        }
+
+        .social-name {
+            color: #050505;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .social-text {
+            color: #050505;
+            font-size: 0.9rem;
+        }
+
+        .social-meta {
+            color: #65676b;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        /* dodging close button */
+        .dodge-close {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 999;
+            transition: all 0.2s;
+        }
+
+        /* digital fingerprinting section */
+        .fingerprint-section {
+            background: linear-gradient(180deg, #0a0a0a, #000);
+            border: 3px solid #ff0000;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .fingerprint-header {
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fingerprint-header h3 {
+            color: #fff;
+            text-transform: lowercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fingerprint-header .live-dot {
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: livePulse 1s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
+        }
+
+        .fingerprint-header .tracking-id {
+            font-family: monospace;
+            background: #000;
+            padding: 5px 12px;
+            border-radius: 4px;
+            color: #00ff00;
+            font-size: 0.85rem;
+        }
+
+        .fingerprint-body {
+            padding: 20px;
+        }
+
+        .fingerprint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .fp-item {
+            background: #111;
+            border: 1px solid #333;
+            padding: 12px;
+            border-left: 3px solid #ff0000;
+        }
+
+        .fp-item.collected {
+            border-left-color: #00ff00;
+            animation: fpCollect 0.5s ease-out;
+        }
+
+        @keyframes fpCollect {
+            0% { background: #003300; }
+            100% { background: #111; }
+        }
+
+        .fp-label {
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .fp-value {
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+
+        .fp-value.loading {
+            color: #ffff00;
+        }
+
+        .fp-value.loading::after {
+            content: '...';
+            animation: loadingDots 1s infinite;
+        }
+
+        @keyframes loadingDots {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
+
+        .fingerprint-warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(90deg, #1a0000, #0a0000);
+            border: 2px dashed #ff0000;
+            text-align: center;
+        }
+
+        .fingerprint-warning p {
+            color: #ff6600;
+            font-size: 0.9rem;
+        }
+
+        .fingerprint-warning .fp-hash {
+            color: #ff0000;
+            font-family: monospace;
+            font-size: 1rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: #000;
+            letter-spacing: 2px;
+            word-break: break-all;
+        }
+
+        .fingerprint-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background: #001a00;
+            border: 1px solid #00ff00;
+        }
+
+        .fingerprint-status .status-icon {
+            font-size: 1.5rem;
+        }
+
+        .fingerprint-status p {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        /* canvas fingerprint preview */
+        .canvas-preview {
+            margin-top: 15px;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        .canvas-preview p {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .canvas-preview canvas {
+            border: 2px solid #ff0000;
+            max-width: 100%;
+        }
+
+        /* audio fingerprint visualizer */
+        .audio-visualizer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 3px;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .audio-bar {
+            width: 4px;
+            background: #00ff00;
+            animation: audioBar 0.5s ease-in-out infinite;
+        }
+
+        .audio-bar:nth-child(1) { animation-delay: 0s; height: 60%; }
+        .audio-bar:nth-child(2) { animation-delay: 0.1s; height: 80%; }
+        .audio-bar:nth-child(3) { animation-delay: 0.2s; height: 40%; }
+        .audio-bar:nth-child(4) { animation-delay: 0.3s; height: 90%; }
+        .audio-bar:nth-child(5) { animation-delay: 0.4s; height: 50%; }
+        .audio-bar:nth-child(6) { animation-delay: 0.5s; height: 70%; }
+        .audio-bar:nth-child(7) { animation-delay: 0.6s; height: 30%; }
+        .audio-bar:nth-child(8) { animation-delay: 0.7s; height: 85%; }
+
+        @keyframes audioBar {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        .fp-permissions {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .fp-permission {
+            background: #111;
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .fp-permission.granted {
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .fp-permission.denied {
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        .fp-permission.unknown {
+            border-color: #ffff00;
+            color: #ffff00;
+        }
+
+        /* fake system alert */
+        .system-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f0f0f0;
+            border: 3px solid #0078d4;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            z-index: 3500;
+            width: 450px;
+            max-width: 90%;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .system-alert-header {
+            background: linear-gradient(180deg, #0078d4, #005a9e);
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .system-alert-body {
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        .system-alert-icon {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .system-alert-icon .icon {
+            width: 40px;
+            height: 40px;
+            background: #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .system-alert-text {
+            color: #333;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .system-alert-text h4 {
+            color: #c00;
+            margin-bottom: 10px;
+        }
+
+        .system-alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding: 15px;
+            background: #f0f0f0;
+            border-top: 1px solid #ddd;
+        }
+
+        .system-alert-buttons button {
+            padding: 8px 25px;
+            border: 1px solid #0078d4;
+            background: #fff;
+            color: #0078d4;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .system-alert-buttons button.primary {
+            background: #0078d4;
+            color: #fff;
+        }
+
+        /* cookie consent dark pattern */
+        .cookie-banner {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #222;
+            padding: 20px;
+            z-index: 3000;
+            border-top: 3px solid #ff6600;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            color: #ccc;
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .cookie-text a {
+            color: #0af;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-accept {
+            padding: 12px 30px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cookie-reject {
+            padding: 12px 15px;
+            background: transparent;
+            color: #666;
+            border: 1px solid #444;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .cookie-settings {
+            padding: 12px 15px;
+            background: transparent;
+            color: #444;
+            border: none;
+            cursor: pointer;
+            font-size: 0.6rem;
+            text-decoration: underline;
+        }
+
+        /* fake captcha */
+        .captcha-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .captcha-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 5px;
+            width: 320px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .captcha-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .captcha-header .shield {
+            width: 30px;
+            height: 30px;
+            background: #4285f4;
+            border-radius: 3px;
+        }
+
+        .captcha-header span {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .captcha-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .captcha-checkbox input {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .captcha-checkbox label {
+            color: #333;
+            cursor: pointer;
+        }
+
+        .captcha-error {
+            color: #c00;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .captcha-loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .captcha-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #ddd;
+            border-top-color: #4285f4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* hidden checkboxes section */
+        .hidden-options {
+            background: #111;
+            border: 1px solid #333;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 0.8rem;
+        }
+
+        .hidden-options h4 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+        }
+
+        .hidden-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .hidden-option input {
+            margin-top: 3px;
+        }
+
+        .hidden-option label {
+            line-height: 1.4;
+        }
+
+        .hidden-option .price {
+            color: #888;
+        }
+
+        /* fake download section */
+        .download-section {
+            background: linear-gradient(180deg, #1a3300, #0a1a00);
+            border: 3px solid #00ff00;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .download-section h2 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .download-section p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .download-btn.fake {
+            background: linear-gradient(180deg, #00ff00, #00aa00);
+            color: #000;
+            animation: btnPulse 0.5s infinite;
+        }
+
+        .download-btn.real {
+            background: #333;
+            color: #666;
+            font-size: 0.7rem;
+            padding: 10px 15px;
+        }
+
+        /* age verification */
+        .age-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3300;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .age-box {
+            background: #111;
+            border: 3px solid #ff0000;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .age-box h2 {
+            color: #ff0000;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .age-box p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .age-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .age-input select {
+            padding: 10px;
+            font-size: 1rem;
+            background: #222;
+            color: #fff;
+            border: 2px solid #444;
+        }
+
+        .age-submit {
+            padding: 15px 50px;
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* progress bar that never completes */
+        .eternal-progress {
+            background: #111;
+            border: 2px solid #ffff00;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .eternal-progress h4 {
+            color: #ffff00;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .eternal-bar {
+            background: #333;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .eternal-fill {
+            background: linear-gradient(90deg, #ff0000, #ff6600, #ffff00);
+            height: 100%;
+            width: 0%;
+            border-radius: 12px;
+            transition: width 2s ease-out;
+        }
+
+        .eternal-percent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .eternal-status {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* fake security badges */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: #0a0a0a;
+            margin: 20px 0;
+        }
+
+        .security-badge {
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .security-badge .badge-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #00aa00, #006600);
+            border-radius: 50%;
+        }
+
+        .security-badge span {
+            color: #333;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* misleading form */
+        .misleading-form {
+            background: linear-gradient(180deg, #1a1a00, #000);
+            border: 3px solid #ffff00;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .misleading-form h3 {
+            color: #ffff00;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        .form-row label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-row input {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 2px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-row input:focus {
+            border-color: #ffff00;
+            outline: none;
+        }
+
+        .form-row .hint {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(180deg, #ffff00, #ccaa00);
+            color: #000;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* session warning */
+        .session-warning {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: #ff0000;
+            color: #fff;
+            padding: 15px;
+            max-width: 200px;
+            z-index: 100;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .session-warning::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: #ff0000;
+        }
+
+        /* bait and switch pricing */
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .pricing-card {
+            background: #111;
+            border: 2px solid #333;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.featured {
+            border-color: #ff6600;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #ff6600;
+            color: #fff;
+            padding: 5px 40px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        .pricing-header {
+            background: #222;
+            padding: 20px;
+        }
+
+        .pricing-header h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .pricing-header .price {
+            font-size: 2rem;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .pricing-header .price small {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .pricing-header .original {
+            color: #ff0000;
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .pricing-body {
+            padding: 20px;
+        }
+
+        .pricing-body ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .pricing-body li {
+            color: #ccc;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+            font-size: 0.85rem;
+        }
+
+        .pricing-body li::before {
+            content: '[x] ';
+            color: #00ff00;
+        }
+
+        .pricing-body li.disabled {
+            color: #555;
+        }
+
+        .pricing-body li.disabled::before {
+            content: '[ ] ';
+            color: #ff0000;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 15px;
+            background: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: linear-gradient(180deg, #ff6600, #cc4400);
+        }
+
+        /* ============ AUTHENTIC SCAM FEATURES ============ */
+
+        /* marquee banner */
+        .marquee-banner {
+            background: #ffff00;
+            color: #ff0000;
+            padding: 5px 0;
+            font-weight: bold;
+            font-size: 14px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* old school table layout */
+        .scam-table {
+            width: 100%;
+            border: 3px solid #ff0000;
+            border-collapse: collapse;
+            background: #000;
+            margin: 20px 0;
+        }
+
+        .scam-table td {
+            border: 1px solid #333;
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        .scam-table .sidebar {
+            width: 200px;
+            background: #0a0a0a;
+        }
+
+        /* fake antivirus scan */
+        .antivirus-scan {
+            background: #fff;
+            border: 3px solid #000;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+        }
+
+        .antivirus-header {
+            background: linear-gradient(180deg, #0055aa, #003366);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .antivirus-body {
+            padding: 15px;
+            background: #f0f0f0;
+            color: #000;
+            font-size: 12px;
+        }
+
+        .antivirus-body .scan-line {
+            margin: 3px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .antivirus-body .threat {
+            color: #cc0000;
+            font-weight: bold;
+        }
+
+        .antivirus-body .ok {
+            color: #008800;
+        }
+
+        .antivirus-footer {
+            background: #ddd;
+            padding: 10px;
+            text-align: center;
+            border-top: 2px solid #999;
+        }
+
+        .antivirus-footer button {
+            padding: 8px 30px;
+            background: linear-gradient(180deg, #4CAF50, #388E3C);
+            color: #fff;
+            border: 2px outset #666;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 12px;
+        }
+
+        /* windows xp style error */
+        .xp-error {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ece9d8;
+            border: 2px solid #0054e3;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            z-index: 4000;
+            min-width: 350px;
+        }
+
+        .xp-titlebar {
+            background: linear-gradient(180deg, #0a246a 0%, #a6caf0 8%, #0a246a 12%, #0a246a 88%, #a6caf0 92%, #0a246a 100%);
+            background: linear-gradient(180deg, #0054e3, #0047cc);
+            color: #fff;
+            padding: 3px 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .xp-titlebar .close-btn {
+            background: linear-gradient(180deg, #d4483a, #8b0000);
+            color: #fff;
+            border: 1px solid #fff;
+            width: 21px;
+            height: 21px;
+            font-size: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .xp-body {
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .xp-icon {
+            width: 32px;
+            height: 32px;
+            background: #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .xp-buttons {
+            padding: 10px;
+            background: #ece9d8;
+            text-align: center;
+            border-top: 1px solid #fff;
+        }
+
+        .xp-buttons button {
+            padding: 5px 20px;
+            margin: 0 5px;
+            background: linear-gradient(180deg, #fff, #ece9d8);
+            border: 1px solid #003c74;
+            border-radius: 3px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .xp-buttons button:hover {
+            background: linear-gradient(180deg, #ece9d8, #ddd);
+        }
+
+        /* blinking text old school */
+        .blink-fast {
+            animation: blinkFast 0.2s infinite;
+        }
+
+        @keyframes blinkFast {
+            0%, 49% { visibility: visible; }
+            50%, 100% { visibility: hidden; }
+        }
+
+        /* fake file scan list */
+        .file-scan {
+            background: #000;
+            border: 2px inset #666;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #00ff00;
+            max-height: 150px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+
+        .file-scan .file-line {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .file-scan .infected {
+            color: #ff0000;
+        }
+
+        /* fake toolbar/browser bar */
+        .fake-toolbar {
+            background: linear-gradient(180deg, #e8e8e8, #d0d0d0);
+            border: 1px solid #999;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .fake-toolbar input {
+            flex: 1;
+            padding: 3px 5px;
+            border: 1px inset #999;
+            font-size: 11px;
+            background: #fff;
+        }
+
+        .fake-toolbar button {
+            padding: 3px 15px;
+            background: linear-gradient(180deg, #f5f5f5, #ddd);
+            border: 1px outset #999;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        /* aggressive red border flash */
+        .danger-border {
+            animation: dangerFlash 0.3s infinite;
+        }
+
+        @keyframes dangerFlash {
+            0%, 100% { border-color: #ff0000; }
+            50% { border-color: #ffff00; }
+        }
+
+        /* old school hit counter */
+        .hit-counter {
+            background: #000;
+            display: inline-block;
+            padding: 5px 10px;
+            border: 2px inset #666;
+        }
+
+        .hit-counter span {
+            background: #111;
+            color: #00ff00;
+            padding: 2px 5px;
+            margin: 0 1px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #333;
+        }
+
+        /* scratch card */
+        .scratch-section {
+            background: linear-gradient(135deg, #ff6b00, #ff4400);
+            border: 4px solid #ffff00;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scratch-section::before {
+            content: '[NEW USER BONUS]';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffff00;
+            color: #ff0000;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .scratch-section h2 {
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .scratch-card {
+            position: relative;
+            width: 280px;
+            height: 120px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .scratch-prize {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00ff00, #00cc00);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .scratch-prize .amount {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0 #fff;
+        }
+
+        .scratch-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #888, #666);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: opacity 0.5s;
+        }
+
+        .scratch-cover.revealed {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* lightning deals */
+        .lightning-section {
+            background: linear-gradient(180deg, #1a0a00, #000);
+            border: 3px solid #ff6600;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .lightning-header {
+            background: linear-gradient(90deg, #ff6600, #ff4400, #ff6600);
+            background-size: 200% 100%;
+            animation: gradientMove 2s linear infinite;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .lightning-header h3 {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: lowercase;
+        }
+
+        .lightning-header .bolt {
+            font-size: 1.5rem;
+            animation: boltFlash 0.5s infinite;
+        }
+
+        @keyframes boltFlash {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .lightning-timer {
+            background: #000;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: #ff0000;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .lightning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .lightning-item {
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .lightning-item:hover {
+            border-color: #ff6600;
+            transform: scale(1.02);
+        }
+
+        .lightning-item .discount-tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff0000;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: tagPulse 0.5s infinite;
+        }
+
+        @keyframes tagPulse {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .lightning-item .item-img {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .lightning-item .item-name {
+            color: #fff;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .lightning-item .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .lightning-item .old-price {
+            color: #666;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+
+        .lightning-item .new-price {
+            color: #ff0000;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .lightning-item .sold-bar {
+            background: #333;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .lightning-item .sold-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6600, #ff0000);
+            border-radius: 4px;
+        }
+
+        .lightning-item .sold-text {
+            color: #ff6600;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        /* free shipping progress */
+        .shipping-progress {
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .shipping-progress .truck {
+            font-size: 2rem;
+            animation: truckBounce 0.5s infinite;
+        }
+
+        @keyframes truckBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .shipping-progress .progress-info {
+            flex: 1;
+        }
+
+        .shipping-progress .progress-text {
+            color: #000;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .shipping-progress .progress-bar {
+            background: rgba(0,0,0,0.2);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .shipping-progress .progress-fill {
+            height: 100%;
+            background: #000;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        /* daily check-in */
+        .checkin-section {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .checkin-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .checkin-days {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .checkin-day {
+            width: 60px;
+            height: 70px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .checkin-day.claimed {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .checkin-day.today {
+            border-color: #ffff00;
+            animation: todayPulse 1s infinite;
+        }
+
+        @keyframes todayPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 255, 0, 0); }
+        }
+
+        .checkin-day .day-num {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        .checkin-day .reward {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkin-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(180deg, #ffff00, #ffcc00);
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+            animation: btnPulse 0.5s infinite;
+        }
+
+        /* slot machine */
+        .slot-section {
+            background: linear-gradient(180deg, #2a0a3a, #1a0020);
+            border: 4px solid #ff00ff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .slot-section h2 {
+            color: #ff00ff;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .slot-reel {
+            width: 80px;
+            height: 100px;
+            background: #000;
+            border: 3px solid #ff00ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .slot-reel.spinning .slot-symbol {
+            animation: slotSpin 0.1s linear infinite;
+        }
+
+        @keyframes slotSpin {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .slot-btn {
+            padding: 15px 50px;
+            background: linear-gradient(180deg, #ff00ff, #cc00cc);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .slot-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ff00ff;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 10px;
+            display: none;
+        }
+
+        /* coupon rain */
+        .coupon-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            border: 5px solid #ffff00;
+            border-radius: 20px;
+            padding: 40px;
+            z-index: 2900;
+            text-align: center;
+            max-width: 400px;
+            animation: couponBounce 0.5s ease-out;
+        }
+
+        @keyframes couponBounce {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .coupon-popup h2 {
+            color: #ffff00;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .coupon-code {
+            background: #fff;
+            color: #ff0000;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: monospace;
+            border: 3px dashed #ff0000;
+            margin: 20px 0;
+            letter-spacing: 3px;
+        }
+
+        .coupon-expiry {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .coupon-btn {
+            padding: 15px 40px;
+            background: #ffff00;
+            color: #ff0000;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* VIP badge */
+        .vip-banner {
+            background: linear-gradient(90deg, #ffd700, #ffaa00, #ffd700);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+            padding: 12px;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .vip-banner .crown {
+            font-size: 1.2rem;
+        }
+
+        /* someone bought notification */
+        .bought-notif {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 280px;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            0% { transform: translateX(-400px); }
+            100% { transform: translateX(0); }
+        }
+
+        .bought-notif img {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6600, #ff0000);
+            border-radius: 5px;
+        }
+
+        .bought-notif .notif-text {
+            color: #333;
+            font-size: 0.85rem;
+        }
+
+        .bought-notif .notif-name {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .bought-notif .notif-time {
+            color: #999;
+            font-size: 0.75rem;
+        }
+
+        /* mystery box stack */
+        .mystery-stack {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .mystery-box {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6600, #ff0000);
+            border: 4px solid #ffff00;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: boxWobble 2s ease-in-out infinite;
+        }
+
+        .mystery-box:nth-child(2) { animation-delay: 0.3s; }
+        .mystery-box:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes boxWobble {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .mystery-box:hover {
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 0 0 30px #ff660066;
+        }
+
+        .mystery-box .box-icon {
+            font-size: 2.5rem;
+        }
+
+        .mystery-box .box-label {
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* wheel of fortune style */
+        .fortune-section {
+            background: linear-gradient(180deg, #001a33, #000);
+            border: 4px solid #00ffff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .fortune-section h2 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .fortune-subtitle {
+            color: #ffff00;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .fortune-spins {
+            background: #ff0000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            animation: spinsPulse 1s infinite;
+        }
+
+        @keyframes spinsPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* fake reviews */
+        .temu-reviews {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .temu-reviews h3 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .temu-reviews .rating {
+            color: #ff6600;
+            font-weight: bold;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .review-name {
+            color: #333;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .review-verified {
+            color: #00aa00;
+            font-size: 0.75rem;
+        }
+
+        .review-stars {
+            color: #ffaa00;
+        }
+
+        .review-text {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .review-photos {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .review-photo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ddd, #bbb);
+            border-radius: 5px;
+        }
+
+        /* referral banner */
+        .referral-banner {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .referral-banner .referral-text {
+            color: #fff;
+        }
+
+        .referral-banner h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .referral-banner p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .referral-banner button {
+            padding: 12px 30px;
+            background: #fff;
+            color: #ff416c;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+
+    <div class="warning-bar">
+        <span class="blink">warning:</span> your device has been selected for a special reward! do not close this page!
+    </div>
+
+    <div class="marquee-banner">
+        <span class="marquee-text">*** CONGRATULATIONS *** YOU ARE THE 1,000,000th VISITOR *** CLICK HERE TO CLAIM YOUR PRIZE *** WARNING: VIRUS DETECTED ON YOUR COMPUTER *** DOWNLOAD FREE ANTIVIRUS NOW *** YOUR COMPUTER IS AT RISK *** ACT NOW BEFORE IT'S TOO LATE ***</span>
+    </div>
+
+    <div class="visitor-bar">
+        you are visitor #<span id="visitorNum">1,847,293</span> - claim your prize before it expires!
+    </div>
+
+        <!-- VIP banner -->
+    <div class="vip-banner" style="font-family:'Times New Roman',serif;">
+        *** CONGRATULATIONS *** YOU HAVE BEEN UPGRADED TO VIP MEMBER STATUS *** EXCLUSIVE PRIZES UNLOCKED ***
+    </div>
+
+    <!-- someone bought notification -->
+    <div class="bought-notif" id="boughtNotif">
+        <div style="width:40px;height:40px;background:linear-gradient(135deg,#ff6600,#ff0000);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;">NEW</div>
+        <div>
+            <div class="notif-text"><span class="notif-name" id="boughtName">emma from texas</span> just bought this!</div>
+            <div class="notif-time" id="boughtTime">2 seconds ago</div>
+        </div>
+    </div>
+
+    <!-- session warning -->
+    <div class="session-warning" id="sessionWarning">
+        WARNING: Your session is being recorded for security purposes. IP logged. Do not close this page.
+    </div>
+
+    <!-- fake location detection -->
+    <div class="location-banner">
+        [DETECTED] we detected you're in <span id="userCity">loading...</span>! only <span id="areaSlots">7</span> prizes left for your area!
+    </div>
+
+    <nav>
+        <a href="index.html">home</a>
+        <a href="about.html">winners</a>
+        <a href="gallery.html">prizes</a>
+        <a href="games.html">free gifts</a>
+        <a href="contact.html">claim now</a>
+    </nav>
+
+    <div class="online-count">
+        <span id="onlineCount">2,847</span> people viewing now
+    </div>
+
+    <div class="container">
+        <div class="main-alert danger-border">
+            <h1 class="blink-fast">CONGRADULATIONS!!! YOU HAVE WON!!!</h1>
+            <p style="font-size:14px;">YOU HAVE BEEN RANDOM SELECTED TO RECIEVE A <span class="blink" style="color: #00ff00;">FREE GIFT</span> WORTH $1,000+</p>
+            <p style="color:#ff0;margin-top:10px;font-size:11px;">*** DO NOT CLOSE THIS WINDOW *** YOUR PRIZE WILL BE CANCEL ***</p>
+        </div>
+
+        <div class="countdown-box danger-border">
+            <h2 style="font-family:'Times New Roman',serif;">HURRY!! THIS OFFER IS EXPIRE IN:</h2>
+            <div class="countdown" id="countdown">04:59</div>
+            <p style="color:#fff;font-size:11px;margin-top:10px;">After timer reach zero, your prize will be give to next visitor!!</p>
+        </div>
+
+        <!-- spin wheel -->
+        <div class="wheel-section">
+            <h2>spin the wheel to reveal your prize!</h2>
+            <p>every spin is a winner! 100% chance to win!</p>
+            
+            <div class="wheel-container">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel"></div>
+            </div>
+            
+            <button class="spin-btn" onclick="spinWheel()">spin now - it's free!</button>
+            <div class="wheel-result" id="wheelResult"></div>
+        </div>
+
+        <!-- live feed -->
+        <div class="live-feed">
+            <h3>live activity - real winners right now:</h3>
+            <div id="feedContainer"></div>
+        </div>
+
+        <!-- claim boxes -->
+        <div class="claim-section">
+            <div class="claim-box danger-border">
+                <h3 style="font-family:'Times New Roman',serif;">MYSTERY BOX #1</h3>
+                <p>contain items worth UP TO $5,000!!</p>
+                <div class="old-price">$499.99</div>
+                <div class="new-price blink">$0.00 FREE!!</div>
+                <button class="claim-btn" onclick="claimPrize()">CLICK HERE CLAIM NOW</button>
+                <p class="stock-warning">only 3 remain in stock!!</p>
+            </div>
+            
+            <div class="claim-box danger-border">
+                <h3 style="font-family:'Times New Roman',serif;">EXCLUSIVE REWARD</h3>
+                <p>GUARENTEED cash prize inside!!</p>
+                <div class="old-price">$999.99</div>
+                <div class="new-price blink">$0.00 FREE!!</div>
+                <button class="claim-btn" onclick="claimPrize()">CLICK HERE CLAIM NOW</button>
+                <p class="stock-warning">only 1 remain in stock!!</p>
+            </div>
+            
+            <div class="claim-box danger-border">
+                <h3 style="font-family:'Times New Roman',serif;">VIP GIFT CARD</h3>
+                <p>redeemable at ANY store in world!!</p>
+                <div class="old-price">$250.00</div>
+                <div class="new-price blink">$0.00 FREE!!</div>
+                <button class="claim-btn" onclick="claimPrize()">CLICK HERE CLAIM NOW</button>
+                <p class="stock-warning">only 2 remain in stock!!</p>
+            </div>
+        </div>
+
+        <div class="trust-row">
+            <div class="trust-badge">100% secure</div>
+            <div class="trust-badge">verified website</div>
+            <div class="trust-badge">ssl protected</div>
+            <div class="trust-badge">trusted by millions</div>
+            <div class="trust-badge">money back guarantee</div>
+        </div>
+
+        <!-- ip warning -->
+        <div class="ip-warning">
+            [WARNING] your ip address <span id="fakeIP">192.168.1.xxx</span> has been logged. this offer is tied to your device. do not share this link!
+        </div>
+
+        <!-- digital fingerprinting -->
+        <div class="fingerprint-section danger-border">
+            <div class="fingerprint-header">
+                <h3 style="font-family:'Courier New',monospace;"><span class="live-dot"></span> SYSTEM SCAN IN PROGRESS - DATA COLLECTED</h3>
+                <div class="tracking-id">TRACKING ID: <span id="trackingId">generating...</span></div>
+            </div>
+            <div class="fingerprint-body">
+                <div class="fingerprint-grid">
+                    <div class="fp-item" id="fpBrowser">
+                        <div class="fp-label">browser</div>
+                        <div class="fp-value loading" id="fpBrowserVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpOS">
+                        <div class="fp-label">operating system</div>
+                        <div class="fp-value loading" id="fpOSVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpScreen">
+                        <div class="fp-label">screen resolution</div>
+                        <div class="fp-value loading" id="fpScreenVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpTimezone">
+                        <div class="fp-label">timezone</div>
+                        <div class="fp-value loading" id="fpTimezoneVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpLanguage">
+                        <div class="fp-label">language</div>
+                        <div class="fp-value loading" id="fpLanguageVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpCores">
+                        <div class="fp-label">cpu cores</div>
+                        <div class="fp-value loading" id="fpCoresVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpMemory">
+                        <div class="fp-label">device memory</div>
+                        <div class="fp-value loading" id="fpMemoryVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpGPU">
+                        <div class="fp-label">graphics card</div>
+                        <div class="fp-value loading" id="fpGPUVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpTouch">
+                        <div class="fp-label">touch support</div>
+                        <div class="fp-value loading" id="fpTouchVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpPlugins">
+                        <div class="fp-label">plugins detected</div>
+                        <div class="fp-value loading" id="fpPluginsVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpFonts">
+                        <div class="fp-label">fonts detected</div>
+                        <div class="fp-value loading" id="fpFontsVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpConnection">
+                        <div class="fp-label">connection type</div>
+                        <div class="fp-value loading" id="fpConnectionVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpBattery">
+                        <div class="fp-label">battery level</div>
+                        <div class="fp-value loading" id="fpBatteryVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpCookies">
+                        <div class="fp-label">cookies enabled</div>
+                        <div class="fp-value loading" id="fpCookiesVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpDNT">
+                        <div class="fp-label">do not track</div>
+                        <div class="fp-value loading" id="fpDNTVal">scanning</div>
+                    </div>
+                    <div class="fp-item" id="fpAdBlock">
+                        <div class="fp-label">ad blocker</div>
+                        <div class="fp-value loading" id="fpAdBlockVal">scanning</div>
+                    </div>
+                </div>
+
+                <div class="canvas-preview">
+                    <p>canvas fingerprint capture:</p>
+                    <canvas id="fpCanvas" width="280" height="60"></canvas>
+                </div>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <p style="color: #666; font-size: 0.8rem;">audio context fingerprint:</p>
+                    <div class="audio-visualizer">
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                    </div>
+                    <p style="color: #00ff00; font-family: monospace; font-size: 0.75rem; margin-top: 5px;" id="audioHash">hash: calculating...</p>
+                </div>
+
+                <div class="fp-permissions">
+                    <div class="fp-permission unknown" id="fpPermCamera">[CAM] camera: checking</div>
+                    <div class="fp-permission unknown" id="fpPermMic">[MIC] microphone: checking</div>
+                    <div class="fp-permission unknown" id="fpPermLocation">[LOC] location: checking</div>
+                    <div class="fp-permission unknown" id="fpPermNotif">[NTF] notifications: checking</div>
+                </div>
+
+                <div class="fingerprint-warning">
+                    <p>[!] your unique device fingerprint has been recorded:</p>
+                    <div class="fp-hash" id="fpFullHash">calculating unique identifier...</div>
+                </div>
+
+                <div class="fingerprint-status">
+                    <span class="status-icon">[OK]</span>
+                    <p>fingerprint verified - you are eligible for all prizes!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- slots remaining -->
+        <div class="slots-remaining">
+            <h3>[!] limited slots for your area! [!]</h3>
+            <div class="slots-num" id="slotsNum">7</div>
+            <p style="color: #fff;">other users are claiming right now - act fast!</p>
+        </div>
+
+        <!-- eternal progress bar -->
+        <div class="eternal-progress">
+            <h4>verifying your prize eligibility...</h4>
+            <div class="eternal-bar">
+                <div class="eternal-fill" id="eternalFill"></div>
+                <span class="eternal-percent" id="eternalPercent">0%</span>
+            </div>
+            <p class="eternal-status" id="eternalStatus">initializing verification system...</p>
+        </div>
+
+        <!-- hidden pre-checked options -->
+        <div class="hidden-options">
+            <h4>additional services (scroll to see all options):</h4>
+            <div class="hidden-option">
+                <input type="checkbox" checked id="opt1">
+                <label for="opt1">yes, i want to receive exclusive offers via email, sms, phone calls, mail, fax, and carrier pigeon <span class="price">($0.00/month for first month, then $29.99/month)</span></label>
+            </div>
+            <div class="hidden-option">
+                <input type="checkbox" checked id="opt2">
+                <label for="opt2">sign me up for premium winner's protection plan <span class="price">($0.00 today, auto-renews at $49.99/month)</span></label>
+            </div>
+            <div class="hidden-option">
+                <input type="checkbox" checked id="opt3">
+                <label for="opt3">i agree to share my data with our 847 trusted partners for personalized experiences</label>
+            </div>
+            <div class="hidden-option">
+                <input type="checkbox" checked id="opt4">
+                <label for="opt4">enroll me in the exclusive vip rewards program <span class="price">(first 3 months free, then $19.99/month)</span></label>
+            </div>
+            <div class="hidden-option">
+                <input type="checkbox" id="opt5">
+                <label for="opt5" style="color: #333;">do not send me any additional offers (note: unchecking this may delay your prize by 6-8 weeks)</label>
+            </div>
+        </div>
+
+        <!-- fake download buttons -->
+        <div class="download-section">
+            <h2>download your prize verification certificate</h2>
+            <p>click the button below to download and verify your prize claim</p>
+            <div class="download-buttons">
+                <button class="download-btn fake" onclick="fakeDownload()">DOWNLOAD NOW - FREE</button>
+                <button class="download-btn real">download without special offers (limited functionality)</button>
+            </div>
+        </div>
+
+        <!-- fake antivirus scan -->
+        <div class="antivirus-scan">
+            <div class="antivirus-header">
+                <span>Norton AntiVirus - System Scan</span>
+                <span>[_][O][X]</span>
+            </div>
+            <div class="antivirus-body">
+                <p><strong>THREAT DETECTED!</strong></p>
+                <p style="margin-top:10px;">Norton has detected <span class="threat">3 CRITICAL THREATS</span> on your computer!</p>
+                <div class="file-scan" id="fileScanOutput">
+                    <div class="file-line">Initializing scan...</div>
+                </div>
+                <p><span class="threat">WARNING:</span> Your personal data is at RISK!</p>
+                <p>Detected threats:</p>
+                <p class="threat">- Trojan.Win32.FakeAV (HIGH RISK)</p>
+                <p class="threat">- Spyware.Keylogger.PWS (CRITICAL)</p>
+                <p class="threat">- Adware.BHO.Agent (MEDIUM RISK)</p>
+            </div>
+            <div class="antivirus-footer">
+                <button onclick="claimPrize()">REMOVE ALL THREATS NOW</button>
+                <p style="font-size:10px;margin-top:5px;color:#666;">Click to activate Norton Protection and claim your FREE prize</p>
+            </div>
+        </div>
+
+        <!-- fake toolbar -->
+        <div class="fake-toolbar">
+            <span style="font-size:11px;">Address:</span>
+            <input type="text" value="http://www.totallylegitprizes.com/winner/claim?id=YOUR_PRIZE_ID" readonly>
+            <button onclick="claimPrize()">Go</button>
+        </div>
+
+        <!-- hit counter -->
+        <div style="text-align:center;margin:20px 0;">
+            <p style="color:#888;font-size:11px;margin-bottom:5px;">You are visitor number:</p>
+            <div class="hit-counter">
+                <span>0</span><span>0</span><span id="hitCount1">1</span><span id="hitCount2">8</span><span id="hitCount3">4</span><span id="hitCount4">7</span><span id="hitCount5">2</span><span id="hitCount6">9</span><span id="hitCount7">3</span>
+            </div>
+        </div>
+
+        <!-- security badges -->
+        <div class="security-badges">
+            <div class="security-badge">
+                <div class="badge-icon"></div>
+                <span>McAfee SECURE</span>
+            </div>
+            <div class="security-badge">
+                <div class="badge-icon" style="background: linear-gradient(135deg, #ff6600, #cc4400);"></div>
+                <span>Norton VERIFIED</span>
+            </div>
+            <div class="security-badge">
+                <div class="badge-icon" style="background: linear-gradient(135deg, #0066cc, #004499);"></div>
+                <span>BBB A+ RATED</span>
+            </div>
+            <div class="security-badge">
+                <div class="badge-icon" style="background: linear-gradient(135deg, #ffcc00, #ff9900);"></div>
+                <span>TrustPilot 5 STARS</span>
+            </div>
+        </div>
+
+        <!-- bait and switch pricing -->
+        <div class="pricing-table">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h4>basic</h4>
+                    <div class="original">$299.99</div>
+                    <div class="price">$0<small>.00/mo</small></div>
+                </div>
+                <div class="pricing-body">
+                    <ul>
+                        <li>1 prize claim</li>
+                        <li>email support (72hr response)</li>
+                        <li class="disabled">priority processing</li>
+                        <li class="disabled">instant verification</li>
+                        <li class="disabled">bonus rewards</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="claimPrize()">select plan</button>
+                </div>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-header">
+                    <h4>premium</h4>
+                    <div class="original">$599.99</div>
+                    <div class="price">$0<small>.00/mo*</small></div>
+                </div>
+                <div class="pricing-body">
+                    <ul>
+                        <li>unlimited prize claims</li>
+                        <li>24/7 priority support</li>
+                        <li>instant processing</li>
+                        <li>instant verification</li>
+                        <li>10x bonus rewards</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="claimPrize()">select plan - recommended</button>
+                    <p style="color:#666;font-size:0.6rem;margin-top:10px;">*$0.00 for first 7 days, then $89.99/month. Cancel anytime within first 168 hours.</p>
+                </div>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h4>enterprise</h4>
+                    <div class="original">$999.99</div>
+                    <div class="price">$0<small>.00/mo**</small></div>
+                </div>
+                <div class="pricing-body">
+                    <ul>
+                        <li>everything in premium</li>
+                        <li>dedicated account manager</li>
+                        <li>guaranteed wins</li>
+                        <li>exclusive jackpots</li>
+                        <li>100x bonus rewards</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="claimPrize()">select plan</button>
+                    <p style="color:#666;font-size:0.6rem;margin-top:10px;">**requires $500 refundable deposit</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- misleading form -->
+        <div class="misleading-form">
+            <h3>enter your details to claim your prize</h3>
+            <div class="form-row">
+                <label>full legal name (as it appears on your id)</label>
+                <input type="text" placeholder="john smith">
+            </div>
+            <div class="form-row">
+                <label>email address</label>
+                <input type="email" placeholder="your@email.com">
+                <p class="hint">we will send prize confirmation to this address (and promotional emails from our partners)</p>
+            </div>
+            <div class="form-row">
+                <label>phone number (required for prize verification)</label>
+                <input type="tel" placeholder="+1 (555) 123-4567">
+                <p class="hint">standard messaging rates may apply. you may receive up to 47 messages per day.</p>
+            </div>
+            <div class="form-row">
+                <label>shipping address</label>
+                <input type="text" placeholder="123 main street">
+            </div>
+            <div class="form-row">
+                <label>social security number (last 4 digits for verification only)</label>
+                <input type="text" placeholder="XXXX" maxlength="4">
+                <p class="hint">required by federal law to claim prizes over $600</p>
+            </div>
+            <button class="form-submit" onclick="claimPrize()">verify and claim prize</button>
+            <p style="color:#555;font-size:0.65rem;margin-top:15px;text-align:center;">by clicking submit you agree to our terms of service, privacy policy, arbitration agreement, class action waiver, and consent to receive communications. your information may be shared with third parties.</p>
+        </div>
+
+        <!-- fake testimonials -->
+        <div class="testimonials">
+            <h3>[*] verified winner reviews [*]</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">M</div>
+                        <div>
+                            <div class="testimonial-name">mike t.</div>
+                            <div class="testimonial-verified">[VERIFIED WINNER]</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">*****</div>
+                    <p class="testimonial-text">"i thought it was fake but i actually got my $1000 gift card!! this is 100% legit!!!"</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">S</div>
+                        <div>
+                            <div class="testimonial-name">sarah k.</div>
+                            <div class="testimonial-verified">[VERIFIED WINNER]</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">*****</div>
+                    <p class="testimonial-text">"omg i won a free iphone!! just had to pay $2.99 shipping!! best deal ever!!"</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">J</div>
+                        <div>
+                            <div class="testimonial-name">james r.</div>
+                            <div class="testimonial-verified">[VERIFIED WINNER]</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">*****</div>
+                    <p class="testimonial-text">"my wife didn't believe me but now we're going on vacation with our prize money!!"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- fake social comments -->
+        <div class="social-comments">
+            <div class="social-header">
+                <div class="fb-icon">f</div>
+                <span>Facebook Comments</span>
+            </div>
+            <div class="social-comment">
+                <div class="social-avatar"></div>
+                <div>
+                    <div class="social-content">
+                        <div class="social-name">Jennifer Martinez</div>
+                        <div class="social-text">OMG this actually works!! I just got my gift card in the mail!!</div>
+                    </div>
+                    <div class="social-meta">Like · Reply · 2m</div>
+                </div>
+            </div>
+            <div class="social-comment">
+                <div class="social-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+                <div>
+                    <div class="social-content">
+                        <div class="social-name">Robert Johnson</div>
+                        <div class="social-text">I was skeptical at first but WOW!! Sharing with all my friends!!!</div>
+                    </div>
+                    <div class="social-meta">Like · Reply · 5m</div>
+                </div>
+            </div>
+            <div class="social-comment">
+                <div class="social-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
+                <div>
+                    <div class="social-content">
+                        <div class="social-name">Amanda Chen</div>
+                        <div class="social-text">Just claimed mine!! Can't believe it's FREE!! Amazing!!</div>
+                    </div>
+                    <div class="social-meta">Like · Reply · 8m</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- scratch card -->
+        <div class="scratch-section">
+            <h2>scratch to reveal your secret bonus!</h2>
+            <p style="color: #fff;">every card is a winner! tap to scratch!</p>
+            <div class="scratch-card" onclick="revealScratch()">
+                <div class="scratch-prize">
+                    <div>you won!</div>
+                    <div class="amount" id="scratchAmount">$500</div>
+                    <div>bonus credit!</div>
+                </div>
+                <div class="scratch-cover" id="scratchCover">
+                    ✨ TAP TO SCRATCH ✨
+                </div>
+            </div>
+        </div>
+
+        <!-- lightning deals -->
+        <div class="lightning-section">
+            <div class="lightning-header">
+                <h3><span class="bolt">[!]</span> lightning deals - ending soon!</h3>
+                <div class="lightning-timer" id="lightningTimer">02:34:56</div>
+            </div>
+            <div class="lightning-grid">
+                <div class="lightning-item">
+                    <div class="discount-tag">-99%</div>
+                    <div class="item-img" style="font-size:1.5rem;color:#00ff00;">[PHONE]</div>
+                    <div class="item-name">iPhone 15 Pro Max</div>
+                    <div class="price-row">
+                        <span class="old-price">$1,199</span>
+                        <span class="new-price">$0.99</span>
+                    </div>
+                    <div class="sold-bar"><div class="sold-fill" style="width: 87%"></div></div>
+                    <div class="sold-text">87% claimed!</div>
+                </div>
+                <div class="lightning-item">
+                    <div class="discount-tag">-98%</div>
+                    <div class="item-img" style="font-size:1.5rem;color:#00ff00;">[LAPTOP]</div>
+                    <div class="item-name">MacBook Pro M3</div>
+                    <div class="price-row">
+                        <span class="old-price">$2,499</span>
+                        <span class="new-price">$1.99</span>
+                    </div>
+                    <div class="sold-bar"><div class="sold-fill" style="width: 94%"></div></div>
+                    <div class="sold-text">94% claimed!</div>
+                </div>
+                <div class="lightning-item">
+                    <div class="discount-tag">-97%</div>
+                    <div class="item-img" style="font-size:1.5rem;color:#00ff00;">[GAME]</div>
+                    <div class="item-name">PS5 Console Bundle</div>
+                    <div class="price-row">
+                        <span class="old-price">$599</span>
+                        <span class="new-price">$2.49</span>
+                    </div>
+                    <div class="sold-bar"><div class="sold-fill" style="width: 91%"></div></div>
+                    <div class="sold-text">91% claimed!</div>
+                </div>
+                <div class="lightning-item">
+                    <div class="discount-tag">-99%</div>
+                    <div class="item-img" style="font-size:1.5rem;color:#00ff00;">[WATCH]</div>
+                    <div class="item-name">Apple Watch Ultra</div>
+                    <div class="price-row">
+                        <span class="old-price">$799</span>
+                        <span class="new-price">$0.49</span>
+                    </div>
+                    <div class="sold-bar"><div class="sold-fill" style="width: 96%"></div></div>
+                    <div class="sold-text">96% claimed!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- free shipping progress -->
+        <div class="shipping-progress">
+            <div class="truck" style="font-size:1.5rem;font-weight:bold;">[SHIP]</div>
+            <div class="progress-info">
+                <div class="progress-text">you're SO close to FREE shipping! add $0.01 more!</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 99%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- mystery boxes -->
+        <div style="text-align: center; margin: 30px 0;">
+            <h2 style="color: #ff6600; margin-bottom: 20px; text-transform: lowercase;">tap a mystery box for instant rewards!</h2>
+            <div class="mystery-stack">
+                <div class="mystery-box" onclick="openMysteryBox('$1,000 cash!')">
+                    <div class="box-icon" style="font-size:1.5rem;">?</div>
+                    <div class="box-label">BRONZE</div>
+                </div>
+                <div class="mystery-box" onclick="openMysteryBox('iPhone 15!')">
+                    <div class="box-icon" style="font-size:1.5rem;">??</div>
+                    <div class="box-label">SILVER</div>
+                </div>
+                <div class="mystery-box" onclick="openMysteryBox('$10,000 jackpot!')">
+                    <div class="box-icon" style="font-size:1.5rem;">???</div>
+                    <div class="box-label">GOLD</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- daily check-in -->
+        <div class="checkin-section">
+            <h3>daily check-in rewards - day 7 = $100 bonus!</h3>
+            <div class="checkin-days">
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 1</div>
+                    <div class="reward">$5</div>
+                </div>
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 2</div>
+                    <div class="reward">$10</div>
+                </div>
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 3</div>
+                    <div class="reward">$15</div>
+                </div>
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 4</div>
+                    <div class="reward">$20</div>
+                </div>
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 5</div>
+                    <div class="reward">$30</div>
+                </div>
+                <div class="checkin-day claimed">
+                    <div class="day-num">day 6</div>
+                    <div class="reward">$50</div>
+                </div>
+                <div class="checkin-day today">
+                    <div class="day-num">day 7</div>
+                    <div class="reward">$100</div>
+                </div>
+            </div>
+            <button class="checkin-btn" onclick="dailyCheckin()">check in now - claim $100!</button>
+        </div>
+
+        <!-- slot machine -->
+        <div class="slot-section">
+            <h2>spin the slots - 3 free spins remaining!</h2>
+            <p style="color: #ccc; margin-bottom: 20px;">match 3 symbols to win up to $50,000!</p>
+            <div class="slot-machine">
+                <div class="slot-reel" id="reel1"><span class="slot-symbol" style="color:#ff0000;">7</span></div>
+                <div class="slot-reel" id="reel2"><span class="slot-symbol" style="color:#00ff00;">$</span></div>
+                <div class="slot-reel" id="reel3"><span class="slot-symbol" style="color:#ffff00;">*</span></div>
+            </div>
+            <button class="slot-btn" onclick="spinSlots()">spin now - free!</button>
+            <div class="slot-result" id="slotResult"></div>
+        </div>
+
+        <!-- referral banner -->
+        <div class="referral-banner">
+            <div class="referral-text">
+                <h4>invite friends, get $50 each!</h4>
+                <p>share your link and earn unlimited rewards!</p>
+            </div>
+            <button onclick="alert('link copied! (not really)')">copy referral link</button>
+        </div>
+
+        <!-- fake temu reviews -->
+        <div class="temu-reviews">
+            <h3>[REVIEWS] Customer Reviews <span class="rating">4.9/5</span> (12,847 reviews)</h3>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar"></div>
+                    <div>
+                        <div class="review-name">happy_shopper_2024</div>
+                        <div class="review-verified">[VERIFIED PURCHASE]</div>
+                    </div>
+                </div>
+                <div class="review-stars">*****</div>
+                <p class="review-text">Wow amazing product!! I order iPhone for $0.99 and it actually came!! So happy recommend to everyone!! Very fast ship only 3 week!!</p>
+                <div class="review-photos">
+                    <div class="review-photo"></div>
+                    <div class="review-photo"></div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+                    <div>
+                        <div class="review-name">deal_hunter_99</div>
+                        <div class="review-verified">[VERIFIED PURCHASE]</div>
+                    </div>
+                </div>
+                <div class="review-stars">*****</div>
+                <p class="review-text">At first i think scam but NO!! Real product real deal!! My husband not believe me but now he order 5 more!! Best website ever trust me!! 100%!!</p>
+            </div>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
+                    <div>
+                        <div class="review-name">lucky_winner_today</div>
+                        <div class="review-verified">[VERIFIED PURCHASE]</div>
+                    </div>
+                </div>
+                <div class="review-stars">*****</div>
+                <p class="review-text">I win $500 from spin wheel!! They really pay!! Now I tell all my friend family!! Don't miss this opportunity it real!! AMAZING!!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <p><span class="highlight" id="popupName">john from california</span></p>
+        <p id="popupAction">just claimed their free prize!</p>
+        <p style="color: #666; font-size: 0.8rem;" id="popupTime">2 seconds ago</p>
+    </div>
+
+    <div class="bottom-bar">
+        act now! this page will expire and your prize will be given to someone else!
+    </div>
+
+    <div class="security-overlay" id="securityPopup">
+        <div class="security-box">
+            <h2>security verification required</h2>
+            <p>to protect your prize, please verify you are human by clicking the button below</p>
+            <button onclick="closeSecurityPopup()">i am human - continue</button>
+        </div>
+    </div>
+
+    <!-- chat widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="status">prize support</div>
+            <span style="color: #000;">online</span>
+        </div>
+        <div class="chat-body">
+            <div class="chat-message agent">
+                hi there! i see you've been selected to win! do you need help claiming your prize?
+            </div>
+            <div class="chat-message agent" id="chatMessage2" style="display:none;">
+                just click any "claim now" button and follow the simple steps! it only takes 30 seconds!
+            </div>
+            <div class="chat-typing" id="chatTyping">
+                agent is typing<span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- exit intent popup -->
+    <div class="exit-popup" id="exitPopup">
+        <div class="exit-box">
+            <h2>*** wait!!! don't leave!!! ***</h2>
+            <p>you're about to lose your exclusive prize worth <span style="color: #00ff00;">$1,000+</span>!</p>
+            <p style="color: #ffff00; margin-bottom: 20px;">this offer will be given to someone else in <span id="exitCountdown">60</span> seconds!</p>
+            <div class="exit-buttons">
+                <button class="exit-stay" onclick="closeExitPopup()">yes! i want my free prize!</button>
+                <button class="exit-leave" onclick="closeExitPopup()">no thanks, i hate free money and want to stay poor forever</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- virus warning -->
+    <div class="virus-warning" id="virusWarning">
+        <div class="virus-icon" style="color:#ff0000;font-weight:bold;font-size:3rem;">!!!</div>
+        <h2>warning: your device may be at risk!</h2>
+        <p>we detected (3) potential issues on your device!</p>
+        <p style="color: #fff; font-size: 0.9rem;">good news: claim your prize now and get FREE premium antivirus protection!</p>
+        <button onclick="closeVirusWarning()">fix now & claim prize</button>
+    </div>
+
+    <!-- confirm shaming modal -->
+    <div class="shame-modal" id="shameModal">
+        <div class="shame-box">
+            <h2>are you sure you want to leave?</h2>
+            <p>you're literally throwing away $1,000+ in free prizes...</p>
+            <button class="shame-yes" onclick="closeShameModal()">yes! give me my free money!</button>
+            <button class="shame-no" onclick="closeShameModal()">no, i don't deserve nice things and prefer to struggle financially</button>
+        </div>
+    </div>
+
+    <!-- notification permission popup -->
+    <div class="notif-popup" id="notifPopup">
+        <h4>[!] Prize Alert!</h4>
+        <p>Allow notifications to receive instant updates about your prize status and claim reminders!</p>
+        <div class="notif-buttons">
+            <button class="notif-block" onclick="closeNotifPopup()">Block</button>
+            <button class="notif-allow" onclick="closeNotifPopup()">Allow</button>
+        </div>
+    </div>
+
+    <!-- scanning overlay -->
+    <div class="scan-overlay" id="scanOverlay">
+        <div class="scan-box">
+            <h2>[SCAN] scanning your device...</h2>
+            <p style="color: #ccc;">please wait while we verify your eligibility</p>
+            <div class="scan-progress">
+                <div class="scan-bar" id="scanBar"></div>
+            </div>
+            <div class="scan-text" id="scanText">initializing scan...</div>
+            <div class="scan-result" id="scanResult">
+                [VERIFIED] congratulations! you are eligible for all prizes!<br>
+                <button onclick="closeScanOverlay()" style="margin-top:15px; padding:15px 40px; background:#00ff00; color:#000; border:none; font-weight:bold; cursor:pointer;">claim now!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- coupon popup -->
+    <div class="coupon-popup" id="couponPopup">
+        <h2>surprise coupon unlocked!</h2>
+        <p style="color: #fff;">use this code for an EXTRA 90% off!</p>
+        <div class="coupon-code" id="couponCode">FREEMONEY99</div>
+        <p class="coupon-expiry">EXPIRES IN: <span id="couponExpiry">4:59</span></p>
+        <button class="coupon-btn" onclick="closeCouponPopup()">claim now!</button>
+    </div>
+
+    <!-- fake system alert -->
+    <div class="system-alert" id="systemAlert">
+        <div class="system-alert-header">
+            <span>Windows Security Alert</span>
+            <span>X</span>
+        </div>
+        <div class="system-alert-body">
+            <div class="system-alert-icon">
+                <div class="icon">!</div>
+                <div class="system-alert-text">
+                    <h4>Critical Security Warning</h4>
+                    <p>Your computer may be at risk. We have detected suspicious activity on your device.</p>
+                    <p style="margin-top:10px;">Threat detected: WIN32.TROJAN.PRIZE<br>
+                    Status: ACTIVE<br>
+                    Risk Level: HIGH</p>
+                    <p style="margin-top:10px;">Click "Fix Now" to remove threats and claim your security reward.</p>
+                </div>
+            </div>
+        </div>
+        <div class="system-alert-buttons">
+            <button onclick="closeSystemAlert()">Ignore (Not Recommended)</button>
+            <button class="primary" onclick="closeSystemAlert()">Fix Now</button>
+        </div>
+    </div>
+
+    <!-- cookie consent dark pattern -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                We use cookies to enhance your experience and serve you personalized advertisements. By clicking "Accept All" you consent to our use of cookies including those from our 2,847 advertising partners. For more information see our <a href="#">privacy policy</a> (147 pages).
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-accept" onclick="closeCookieBanner()">ACCEPT ALL COOKIES</button>
+                <button class="cookie-reject" onclick="closeCookieBanner()">reject non-essential (some features may not work)</button>
+                <button class="cookie-settings" onclick="closeCookieBanner()">manage preferences (takes 45 minutes)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- fake captcha -->
+    <div class="captcha-overlay" id="captchaOverlay">
+        <div class="captcha-box">
+            <div class="captcha-header">
+                <div class="shield"></div>
+                <span>Security Verification</span>
+            </div>
+            <div id="captchaMain">
+                <div class="captcha-checkbox" onclick="verifyCaptcha()">
+                    <input type="checkbox" id="captchaCheck">
+                    <label for="captchaCheck">I'm not a robot</label>
+                </div>
+                <p class="captcha-error" id="captchaError">Verification failed. Please try again.</p>
+            </div>
+            <div class="captcha-loading" id="captchaLoading">
+                <div class="captcha-spinner"></div>
+                <p>Verifying...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- age verification -->
+    <div class="age-overlay" id="ageOverlay">
+        <div class="age-box">
+            <h2>age verification required</h2>
+            <p>you must be 18 years or older to claim prizes. please verify your age to continue.</p>
+            <div class="age-input">
+                <select id="ageMonth">
+                    <option>month</option>
+                    <option>january</option><option>february</option><option>march</option>
+                    <option>april</option><option>may</option><option>june</option>
+                    <option>july</option><option>august</option><option>september</option>
+                    <option>october</option><option>november</option><option>december</option>
+                </select>
+                <select id="ageDay">
+                    <option>day</option>
+                    <script>for(let i=1;i<=31;i++)document.write('<option>'+i+'</option>')</script>
+                </select>
+                <select id="ageYear">
+                    <option>year</option>
+                    <script>for(let i=2006;i>=1920;i--)document.write('<option>'+i+'</option>')</script>
+                </select>
+            </div>
+            <button class="age-submit" onclick="verifyAge()">verify age</button>
+            <p style="color:#666;font-size:0.7rem;margin-top:15px;">by verifying your age you confirm you are of legal age and agree to our terms</p>
+        </div>
+    </div>
+
+    <!-- Windows XP style errors -->
+    <div class="xp-error" id="xpError">
+        <div class="xp-titlebar">
+            <span>Windows Security Alert</span>
+            <button class="close-btn" onclick="closeXpError()">X</button>
+        </div>
+        <div class="xp-body">
+            <div class="xp-icon">X</div>
+            <div>
+                <p><strong>Your computer is infected!</strong></p>
+                <p style="margin-top:10px;">Windows has detected spyware infection!</p>
+                <p>It is recommended you activate your antivirus software.</p>
+                <p style="margin-top:10px;">Threat detected: Trojan.Win32.Agent</p>
+                <p>Risk Level: CRITICAL</p>
+            </div>
+        </div>
+        <div class="xp-buttons">
+            <button onclick="closeXpError()">Activate Protection</button>
+            <button onclick="closeXpError()">Remove All</button>
+        </div>
+    </div>
+
+    <div class="xp-error" id="xpError2" style="top:40%;left:45%;">
+        <div class="xp-titlebar">
+            <span>System Warning</span>
+            <button class="close-btn" onclick="closeXpError2()">X</button>
+        </div>
+        <div class="xp-body">
+            <div class="xp-icon">!</div>
+            <div>
+                <p><strong>CRITICAL ERROR</strong></p>
+                <p style="margin-top:10px;">Your personal files may be at risk.</p>
+                <p>Hackers may have access to:</p>
+                <p>- Your passwords</p>
+                <p>- Your bank details</p>
+                <p>- Your personal photos</p>
+                <p style="margin-top:10px;">Click OK to secure your computer NOW.</p>
+            </div>
+        </div>
+        <div class="xp-buttons">
+            <button onclick="closeXpError2()">OK</button>
+            <button onclick="closeXpError2()">Secure Now</button>
+        </div>
+    </div>
+
+    <!-- dodging close button -->
+    <button class="dodge-close" id="dodgeClose">×</button>
+
+    <script>
+        // show security popup after delay
+        setTimeout(() => {
+            document.getElementById('securityPopup').style.display = 'flex';
+        }, 3000);
+
+        function closeSecurityPopup() {
+            document.getElementById('securityPopup').style.display = 'none';
+        }
+
+        // countdown timer
+        let mins = 4, secs = 59;
+        setInterval(() => {
+            secs--;
+            if (secs < 0) { secs = 59; mins--; }
+            if (mins < 0) { mins = 4; secs = 59; }
+            document.getElementById('countdown').textContent = 
+                `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        }, 1000);
+
+        // spin wheel
+        let spinning = false;
+        function spinWheel() {
+            if (spinning) return;
+            spinning = true;
+            
+            const wheel = document.getElementById('wheel');
+            const result = document.getElementById('wheelResult');
+            const rotation = 1800 + Math.random() * 1800;
+            
+            wheel.style.transform = `rotate(${rotation}deg)`;
+            result.style.display = 'none';
+            
+            setTimeout(() => {
+                const prizes = [
+                    "you won $1,000 gift card! click claim now!",
+                    "you won free iphone 15! claim below!",
+                    "you won $500 cash! verify to receive!",
+                    "you won mystery prize worth $2,500!",
+                    "you won vip membership! claim now!"
+                ];
+                result.textContent = prizes[Math.floor(Math.random() * prizes.length)];
+                result.style.display = 'block';
+                spinning = false;
+            }, 4000);
+        }
+
+        // live feed
+        const names = [
+            "john from california", "sarah from new york", "mike from texas",
+            "emma from florida", "david from ohio", "lisa from washington",
+            "james from arizona", "amy from colorado", "chris from nevada",
+            "jennifer from oregon", "robert from michigan", "ashley from georgia",
+            "daniel from illinois", "nicole from pennsylvania", "matthew from virginia",
+            "stephanie from north carolina", "kevin from new jersey", "amanda from massachusetts"
+        ];
+        
+        const actions = [
+            "just claimed their free prize!",
+            "just won $500 gift card!",
+            "just received their mystery box!",
+            "just spun and won big!",
+            "just verified and claimed!",
+            "just got their free iphone!",
+            "just won the jackpot prize!"
+        ];
+
+        function addFeedItem() {
+            const container = document.getElementById('feedContainer');
+            const item = document.createElement('div');
+            item.className = 'feed-item';
+            
+            const name = names[Math.floor(Math.random() * names.length)];
+            const action = actions[Math.floor(Math.random() * actions.length)];
+            const seconds = Math.floor(Math.random() * 30) + 1;
+            
+            item.innerHTML = `<span class="name">${name}</span> <span class="action">${action}</span> <span class="time">${seconds}s ago</span>`;
+            
+            container.insertBefore(item, container.firstChild);
+            
+            if (container.children.length > 8) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        // initial feed items
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => addFeedItem(), i * 200);
+        }
+        
+        // continuous feed
+        setInterval(addFeedItem, 2000);
+
+        // popup notifications
+        function updatePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.animation = 'none';
+            popup.offsetHeight;
+            popup.style.animation = 'popupSlide 0.5s ease-out';
+            
+            document.getElementById('popupName').textContent = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('popupAction').textContent = actions[Math.floor(Math.random() * actions.length)];
+            document.getElementById('popupTime').textContent = (Math.floor(Math.random() * 10) + 1) + ' seconds ago';
+        }
+
+        setInterval(updatePopup, 4000);
+
+        // online count
+        setInterval(() => {
+            const count = 2500 + Math.floor(Math.random() * 1000);
+            document.getElementById('onlineCount').textContent = count.toLocaleString();
+        }, 3000);
+
+        // visitor number
+        setInterval(() => {
+            const num = 1800000 + Math.floor(Math.random() * 100000);
+            document.getElementById('visitorNum').textContent = num.toLocaleString();
+        }, 5000);
+
+        function claimPrize() {
+            alert('CONGRADULATIONS!!!\n\nYou are about to claim you FREE prize!!\n\nPlease enter your credit card informations on next page to verify your identitiy and pay $0.00 shpping fee.\n\nYour personal datas is 100% secure and protect!!\n\nTHIS IS TOTALY NOT A SCAM WE PROMISE!!\n\nClick OK to continu...');
+        }
+
+        // ========== DIGITAL FINGERPRINTING ==========
+        
+        // generate fake tracking ID
+        function generateTrackingId() {
+            const chars = 'ABCDEF0123456789';
+            let id = '';
+            for (let i = 0; i < 16; i++) {
+                if (i > 0 && i % 4 === 0) id += '-';
+                id += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return id;
+        }
+
+        // hash function for fingerprint
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16).padStart(8, '0');
+        }
+
+        // collect fingerprint data with staggered reveal
+        function collectFingerprint() {
+            const data = {};
+            const delays = [
+                { id: 'fpBrowser', val: 'fpBrowserVal', get: () => {
+                    const ua = navigator.userAgent;
+                    if (ua.includes('Chrome')) return 'Chrome ' + ua.match(/Chrome\/(\d+)/)?.[1];
+                    if (ua.includes('Firefox')) return 'Firefox ' + ua.match(/Firefox\/(\d+)/)?.[1];
+                    if (ua.includes('Safari')) return 'Safari';
+                    if (ua.includes('Edge')) return 'Edge';
+                    return 'Unknown';
+                }},
+                { id: 'fpOS', val: 'fpOSVal', get: () => {
+                    const ua = navigator.userAgent;
+                    if (ua.includes('Windows NT 10')) return 'Windows 10/11';
+                    if (ua.includes('Windows')) return 'Windows';
+                    if (ua.includes('Mac OS X')) return 'macOS ' + ua.match(/Mac OS X (\d+[._]\d+)/)?.[1]?.replace('_', '.');
+                    if (ua.includes('Linux')) return 'Linux';
+                    if (ua.includes('Android')) return 'Android';
+                    if (ua.includes('iOS')) return 'iOS';
+                    return 'Unknown OS';
+                }},
+                { id: 'fpScreen', val: 'fpScreenVal', get: () => `${screen.width}x${screen.height} @${window.devicePixelRatio}x` },
+                { id: 'fpTimezone', val: 'fpTimezoneVal', get: () => Intl.DateTimeFormat().resolvedOptions().timeZone },
+                { id: 'fpLanguage', val: 'fpLanguageVal', get: () => navigator.language || navigator.userLanguage },
+                { id: 'fpCores', val: 'fpCoresVal', get: () => navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : 'hidden' },
+                { id: 'fpMemory', val: 'fpMemoryVal', get: () => navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'hidden' },
+                { id: 'fpGPU', val: 'fpGPUVal', get: () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                        if (gl) {
+                            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                            if (debugInfo) {
+                                return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL).substring(0, 30) + '...';
+                            }
+                        }
+                        return 'WebGL supported';
+                    } catch(e) { return 'detection blocked'; }
+                }},
+                { id: 'fpTouch', val: 'fpTouchVal', get: () => {
+                    const touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                    return touch ? `yes (${navigator.maxTouchPoints} points)` : 'no';
+                }},
+                { id: 'fpPlugins', val: 'fpPluginsVal', get: () => navigator.plugins ? `${navigator.plugins.length} plugins` : '0 plugins' },
+                { id: 'fpFonts', val: 'fpFontsVal', get: () => `${Math.floor(Math.random() * 50) + 150} fonts` },
+                { id: 'fpConnection', val: 'fpConnectionVal', get: () => {
+                    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                    return conn ? `${conn.effectiveType || 'unknown'} (${conn.downlink || '?'}Mbps)` : '4g (estimated)';
+                }},
+                { id: 'fpBattery', val: 'fpBatteryVal', get: () => 'requesting...' },
+                { id: 'fpCookies', val: 'fpCookiesVal', get: () => navigator.cookieEnabled ? 'enabled [YES]' : 'disabled [NO]' },
+                { id: 'fpDNT', val: 'fpDNTVal', get: () => {
+                    const dnt = navigator.doNotTrack || window.doNotTrack;
+                    return dnt === '1' ? 'enabled (ignored)' : 'disabled';
+                }},
+                { id: 'fpAdBlock', val: 'fpAdBlockVal', get: () => 'not detected' }
+            ];
+
+            // stagger the collection
+            delays.forEach((item, index) => {
+                setTimeout(() => {
+                    const value = item.get();
+                    data[item.id] = value;
+                    
+                    const el = document.getElementById(item.val);
+                    const container = document.getElementById(item.id);
+                    
+                    el.textContent = value;
+                    el.classList.remove('loading');
+                    container.classList.add('collected');
+                    
+                    // update hash with each new piece
+                    updateFingerprintHash(data);
+                }, 300 + (index * 200));
+            });
+
+            // battery API (async)
+            if (navigator.getBattery) {
+                navigator.getBattery().then(battery => {
+                    setTimeout(() => {
+                        const val = `${Math.round(battery.level * 100)}% ${battery.charging ? '(charging)' : ''}`;
+                        document.getElementById('fpBatteryVal').textContent = val;
+                        document.getElementById('fpBatteryVal').classList.remove('loading');
+                        document.getElementById('fpBattery').classList.add('collected');
+                        data['battery'] = val;
+                        updateFingerprintHash(data);
+                    }, 2800);
+                });
+            }
+
+            // check permissions
+            checkPermissions();
+            
+            // draw canvas fingerprint
+            drawCanvasFingerprint();
+            
+            // generate audio hash
+            setTimeout(() => {
+                const audioHash = 'ac_' + simpleHash(navigator.userAgent + screen.width + Date.now()).substring(0, 24);
+                document.getElementById('audioHash').textContent = 'hash: ' + audioHash;
+            }, 2000);
+        }
+
+        function updateFingerprintHash(data) {
+            const combined = Object.values(data).join('|');
+            const hash = simpleHash(combined);
+            const fullHash = `FP-${hash}-${simpleHash(combined + 'salt1')}-${simpleHash(combined + 'salt2')}-${simpleHash(combined + 'salt3')}`.toUpperCase();
+            document.getElementById('fpFullHash').textContent = fullHash;
+        }
+
+        function checkPermissions() {
+            const permissions = [
+                { name: 'camera', el: 'fpPermCamera', icon: '[CAM]' },
+                { name: 'microphone', el: 'fpPermMic', icon: '[MIC]' },
+                { name: 'geolocation', el: 'fpPermLocation', icon: '[LOC]' },
+                { name: 'notifications', el: 'fpPermNotif', icon: '[NTF]' }
+            ];
+
+            permissions.forEach((perm, index) => {
+                setTimeout(() => {
+                    if (navigator.permissions) {
+                        navigator.permissions.query({ name: perm.name }).then(result => {
+                            const el = document.getElementById(perm.el);
+                            el.classList.remove('unknown');
+                            if (result.state === 'granted') {
+                                el.classList.add('granted');
+                                el.textContent = `${perm.icon} ${perm.name}: GRANTED`;
+                            } else if (result.state === 'denied') {
+                                el.classList.add('denied');
+                                el.textContent = `${perm.icon} ${perm.name}: denied`;
+                            } else {
+                                el.classList.add('unknown');
+                                el.textContent = `${perm.icon} ${perm.name}: prompt`;
+                            }
+                        }).catch(() => {
+                            const el = document.getElementById(perm.el);
+                            el.classList.remove('unknown');
+                            el.classList.add('unknown');
+                            el.textContent = `${perm.icon} ${perm.name}: unknown`;
+                        });
+                    }
+                }, 3500 + (index * 300));
+            });
+        }
+
+        function drawCanvasFingerprint() {
+            const canvas = document.getElementById('fpCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // draw some unique stuff for "fingerprinting"
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // text rendering (used in real fingerprinting)
+            ctx.fillStyle = '#00ff00';
+            ctx.font = '14px Arial';
+            ctx.fillText('canvas fingerprint: ' + navigator.userAgent.substring(0, 25) + '...', 10, 20);
+            
+            // draw some shapes
+            ctx.fillStyle = '#ff0000';
+            ctx.beginPath();
+            ctx.arc(240, 30, 20, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffff00';
+            ctx.fillRect(180, 35, 30, 15);
+            
+            // gradient
+            const gradient = ctx.createLinearGradient(10, 30, 150, 50);
+            gradient.addColorStop(0, '#ff0000');
+            gradient.addColorStop(0.5, '#00ff00');
+            gradient.addColorStop(1, '#0000ff');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(10, 35, 150, 15);
+            
+            // unicode characters
+            ctx.fillStyle = '#fff';
+            ctx.font = '12px serif';
+            ctx.fillText('🔒 unique: ' + simpleHash(canvas.toDataURL()).substring(0, 12), 10, 55);
+        }
+
+        // initialize fingerprinting
+        setTimeout(() => {
+            document.getElementById('trackingId').textContent = generateTrackingId();
+            collectFingerprint();
+        }, 1000);
+
+        // fake city detection
+        const cities = [
+            "New York", "Los Angeles", "Chicago", "Houston", "Phoenix",
+            "Philadelphia", "San Antonio", "San Diego", "Dallas", "Austin",
+            "Seattle", "Denver", "Boston", "Atlanta", "Miami", "Portland"
+        ];
+        
+        setTimeout(() => {
+            document.getElementById('userCity').textContent = cities[Math.floor(Math.random() * cities.length)];
+        }, 1500);
+
+        // fake IP address
+        const fakeIP = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+        document.getElementById('fakeIP').textContent = fakeIP;
+
+        // slots countdown
+        let slots = 7;
+        setInterval(() => {
+            if (slots > 2 && Math.random() > 0.5) {
+                slots--;
+                document.getElementById('slotsNum').textContent = slots;
+                document.getElementById('areaSlots').textContent = slots;
+                
+                // add urgency animation
+                document.getElementById('slotsNum').style.color = '#ff0000';
+                setTimeout(() => {
+                    document.getElementById('slotsNum').style.color = '#fff';
+                }, 500);
+            }
+        }, 8000);
+
+        // chat widget typing simulation
+        setTimeout(() => {
+            document.getElementById('chatTyping').style.display = 'block';
+        }, 5000);
+        
+        setTimeout(() => {
+            document.getElementById('chatTyping').style.display = 'none';
+            document.getElementById('chatMessage2').style.display = 'block';
+        }, 8000);
+
+        // show virus warning after delay
+        setTimeout(() => {
+            document.getElementById('virusWarning').style.display = 'block';
+        }, 15000);
+
+        function closeVirusWarning() {
+            document.getElementById('virusWarning').style.display = 'none';
+            // show notification popup after
+            setTimeout(() => {
+                document.getElementById('notifPopup').style.display = 'block';
+            }, 3000);
+        }
+
+        function closeNotifPopup() {
+            document.getElementById('notifPopup').style.display = 'none';
+        }
+
+        // exit intent detection
+        let exitShown = false;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 10 && !exitShown) {
+                exitShown = true;
+                document.getElementById('exitPopup').style.display = 'flex';
+                
+                // exit countdown
+                let exitCount = 60;
+                const exitInterval = setInterval(() => {
+                    exitCount--;
+                    document.getElementById('exitCountdown').textContent = exitCount;
+                    if (exitCount <= 0) {
+                        clearInterval(exitInterval);
+                    }
+                }, 1000);
+            }
+        });
+
+        function closeExitPopup() {
+            document.getElementById('exitPopup').style.display = 'none';
+            // show shame modal on second interaction
+            setTimeout(() => {
+                document.getElementById('shameModal').style.display = 'flex';
+            }, 20000);
+        }
+
+        function closeShameModal() {
+            document.getElementById('shameModal').style.display = 'none';
+        }
+
+        // scanning animation on page load
+        setTimeout(() => {
+            document.getElementById('scanOverlay').style.display = 'flex';
+            
+            const scanTexts = [
+                "checking device compatibility...",
+                "verifying location...",
+                "checking prize availability...",
+                "scanning for eligibility...",
+                "confirming winner status...",
+                "preparing your prizes..."
+            ];
+            
+            let progress = 0;
+            const scanInterval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress > 100) progress = 100;
+                
+                document.getElementById('scanBar').style.width = progress + '%';
+                document.getElementById('scanText').textContent = scanTexts[Math.floor(progress / 20)] || scanTexts[5];
+                
+                if (progress >= 100) {
+                    clearInterval(scanInterval);
+                    document.getElementById('scanText').style.display = 'none';
+                    document.getElementById('scanResult').style.display = 'block';
+                }
+            }, 500);
+        }, 25000);
+
+        function closeScanOverlay() {
+            document.getElementById('scanOverlay').style.display = 'none';
+        }
+
+        // dodging close button
+        const dodgeBtn = document.getElementById('dodgeClose');
+        let dodgeCount = 0;
+        
+        dodgeBtn.addEventListener('mouseenter', () => {
+            if (dodgeCount < 5) {
+                const maxX = window.innerWidth - 50;
+                const maxY = window.innerHeight - 50;
+                dodgeBtn.style.position = 'fixed';
+                dodgeBtn.style.top = Math.random() * maxY + 'px';
+                dodgeBtn.style.right = 'auto';
+                dodgeBtn.style.left = Math.random() * maxX + 'px';
+                dodgeCount++;
+            }
+        });
+
+        dodgeBtn.addEventListener('click', () => {
+            alert('nice try! you cannot escape your destiny of winning free prizes!');
+        });
+
+        // random popup intervals for more chaos
+        setInterval(() => {
+            if (Math.random() > 0.8) {
+                const popup = document.getElementById('popup');
+                popup.style.animation = 'none';
+                popup.offsetHeight;
+                popup.style.animation = 'popupSlide 0.5s ease-out';
+            }
+        }, 3000);
+
+        // fake urgency - randomly decrease stock warnings
+        setInterval(() => {
+            const warnings = document.querySelectorAll('.stock-warning');
+            warnings.forEach(w => {
+                const match = w.textContent.match(/only (\d+) left/);
+                if (match) {
+                    let num = parseInt(match[1]);
+                    if (num > 1 && Math.random() > 0.7) {
+                        num--;
+                        w.textContent = `only ${num} left in stock!`;
+                    }
+                }
+            });
+        }, 10000);
+
+        // more obnoxious - disable right click
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            alert('SECURITY ALERT!\n\nright-click has been disabled to protect your prize!\n\nplease click "claim now" to continue.');
+        });
+
+        // warn on page visibility change
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.title = '[!] WAIT! YOUR PRIZE IS EXPIRING!!!';
+            } else {
+                document.title = 'congratulations!!! you have been selected!!!';
+            }
+        });
+
+        // keyboard trap attempts
+        document.addEventListener('keydown', (e) => {
+            // warn on escape
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                alert('WARNING: you cannot escape!\n\nyour prize is waiting for you!\n\nclick "claim now" to receive your reward!');
+            }
+            // warn on Ctrl+W or Cmd+W
+            if ((e.ctrlKey || e.metaKey) && e.key === 'w') {
+                e.preventDefault();
+                alert('WARNING: closing this page will forfeit your prize!\n\nare you sure you want to lose $1,000+ in free rewards?');
+            }
+        });
+
+        // ============ AUTHENTIC SCAM FEATURES ============
+
+        // fake file scanner
+        const fakeFiles = [
+            'C:\\Windows\\System32\\config\\SAM',
+            'C:\\Users\\Admin\\Documents\\passwords.txt',
+            'C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data',
+            'C:\\Program Files\\Internet Explorer\\iexplore.exe',
+            'C:\\Windows\\System32\\drivers\\etc\\hosts',
+            'C:\\Users\\Admin\\Desktop\\bank_info.doc',
+            'C:\\Windows\\System32\\cmd.exe',
+            'C:\\Users\\Admin\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\cookies.sqlite',
+            'C:\\Program Files\\Norton AntiVirus\\NAV.exe [INFECTED]',
+            'C:\\Windows\\Temp\\trojan_horse.dll [INFECTED]',
+            'C:\\Users\\Admin\\Downloads\\free_money.exe [INFECTED]',
+            'C:\\Windows\\System32\\malware.sys [CRITICAL]',
+        ];
+
+        let fileIndex = 0;
+        function scanNextFile() {
+            const scanDiv = document.getElementById('fileScanOutput');
+            if (scanDiv && fileIndex < fakeFiles.length) {
+                const line = document.createElement('div');
+                line.className = 'file-line';
+                const file = fakeFiles[fileIndex];
+                if (file.includes('[INFECTED]') || file.includes('[CRITICAL]')) {
+                    line.className += ' infected';
+                }
+                line.textContent = 'Scanning: ' + file;
+                scanDiv.appendChild(line);
+                scanDiv.scrollTop = scanDiv.scrollHeight;
+                fileIndex++;
+                setTimeout(scanNextFile, 300 + Math.random() * 500);
+            }
+        }
+        setTimeout(scanNextFile, 3000);
+
+        // show XP error
+        setTimeout(() => {
+            document.getElementById('xpError').style.display = 'block';
+        }, 8000);
+
+        function closeXpError() {
+            document.getElementById('xpError').style.display = 'none';
+            // show another one after delay
+            setTimeout(() => {
+                document.getElementById('xpError2').style.display = 'block';
+            }, 5000);
+        }
+
+        function closeXpError2() {
+            document.getElementById('xpError2').style.display = 'none';
+        }
+
+        // scratch card
+        function revealScratch() {
+            const cover = document.getElementById('scratchCover');
+            if (!cover.classList.contains('revealed')) {
+                cover.classList.add('revealed');
+                triggerConfetti();
+                const amounts = ['$500', '$750', '$1,000', '$250', '$999'];
+                document.getElementById('scratchAmount').textContent = amounts[Math.floor(Math.random() * amounts.length)];
+                
+                setTimeout(() => {
+                    alert('*** CONGRATULATIONS! ***\n\nYou won ' + document.getElementById('scratchAmount').textContent + ' bonus credit!\n\nClick "Claim Now" to add it to your account!');
+                }, 500);
+            }
+        }
+
+        // confetti
+        function triggerConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff6600', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (5 + Math.random() * 10) + 'px';
+                    confetti.style.height = (5 + Math.random() * 10) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        // lightning timer
+        let lightningHrs = 2, lightningMins = 34, lightningSecs = 56;
+        setInterval(() => {
+            lightningSecs--;
+            if (lightningSecs < 0) { lightningSecs = 59; lightningMins--; }
+            if (lightningMins < 0) { lightningMins = 59; lightningHrs--; }
+            if (lightningHrs < 0) { lightningHrs = 2; lightningMins = 34; lightningSecs = 56; }
+            document.getElementById('lightningTimer').textContent = 
+                `${String(lightningHrs).padStart(2,'0')}:${String(lightningMins).padStart(2,'0')}:${String(lightningSecs).padStart(2,'0')}`;
+        }, 1000);
+
+        // mystery box
+        function openMysteryBox(prize) {
+            triggerConfetti();
+            alert('*** MYSTERY BOX OPENED! ***\n\nYou won: ' + prize + '\n\nThis prize has been added to your cart!\n\nJust pay $4.99 shipping to claim!');
+        }
+
+        // daily check-in
+        function dailyCheckin() {
+            triggerConfetti();
+            alert('*** CHECK-IN SUCCESSFUL! ***\n\n$100 has been added to your account!\n\nCome back tomorrow for even BIGGER rewards!\n\n(Requires credit card verification to withdraw)');
+        }
+
+        // slot machine
+        const slotSymbols = ['7', '$', '*', '#', '@', '%', '&', '!'];
+        let slotSpinning = false;
+
+        function spinSlots() {
+            if (slotSpinning) return;
+            slotSpinning = true;
+
+            const reels = ['reel1', 'reel2', 'reel3'];
+            
+            // start spinning animation
+            reels.forEach(id => {
+                document.getElementById(id).classList.add('spinning');
+            });
+
+            // stop each reel at different times
+            reels.forEach((id, index) => {
+                setTimeout(() => {
+                    const reel = document.getElementById(id);
+                    reel.classList.remove('spinning');
+                    // always show winning combination on last spin
+                    reel.querySelector('.slot-symbol').textContent = '7';
+                }, 1000 + (index * 500));
+            });
+
+            // show result
+            setTimeout(() => {
+                slotSpinning = false;
+                document.getElementById('slotResult').style.display = 'block';
+                document.getElementById('slotResult').textContent = '*** JACKPOT! YOU WON $10,000! *** Click Claim Now!';
+                triggerConfetti();
+            }, 2800);
+        }
+
+        // someone bought notification
+        const products = ['iPhone 15 Pro', 'MacBook Air', 'PS5 Bundle', 'AirPods Pro', 'iPad Mini', 'Apple Watch'];
+        function updateBoughtNotif() {
+            const notif = document.getElementById('boughtNotif');
+            notif.style.animation = 'none';
+            notif.offsetHeight;
+            notif.style.animation = 'slideInLeft 0.5s ease-out';
+            
+            document.getElementById('boughtName').textContent = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('boughtTime').textContent = Math.floor(Math.random() * 30 + 1) + ' seconds ago';
+        }
+        setInterval(updateBoughtNotif, 5000);
+
+        // coupon popup
+        setTimeout(() => {
+            document.getElementById('couponPopup').style.display = 'block';
+            triggerConfetti();
+            
+            // coupon expiry timer
+            let cMins = 4, cSecs = 59;
+            const couponInterval = setInterval(() => {
+                cSecs--;
+                if (cSecs < 0) { cSecs = 59; cMins--; }
+                if (cMins < 0) { 
+                    cMins = 4; cSecs = 59;
+                }
+                document.getElementById('couponExpiry').textContent = `${cMins}:${String(cSecs).padStart(2,'0')}`;
+            }, 1000);
+        }, 12000);
+
+        function closeCouponPopup() {
+            document.getElementById('couponPopup').style.display = 'none';
+        }
+
+        // increase sold percentages over time
+        setInterval(() => {
+            document.querySelectorAll('.sold-fill').forEach(bar => {
+                let width = parseFloat(bar.style.width);
+                if (width < 99) {
+                    bar.style.width = (width + Math.random() * 0.5) + '%';
+                }
+            });
+            document.querySelectorAll('.sold-text').forEach(text => {
+                const match = text.textContent.match(/(\d+)%/);
+                if (match) {
+                    let pct = parseInt(match[1]);
+                    if (pct < 99) {
+                        pct += Math.floor(Math.random() * 2);
+                        if (pct > 99) pct = 99;
+                        text.textContent = pct + '% claimed!';
+                    }
+                }
+            });
+        }, 3000);
+
+        // random "someone just bought" flashing on items
+        setInterval(() => {
+            const items = document.querySelectorAll('.lightning-item');
+            const randomItem = items[Math.floor(Math.random() * items.length)];
+            randomItem.style.background = '#331100';
+            setTimeout(() => {
+                randomItem.style.background = '#111';
+            }, 500);
+        }, 4000);
+
+        // shake device prompt (mobile)
+        if (window.DeviceMotionEvent) {
+            let shakeCount = 0;
+            window.addEventListener('devicemotion', (e) => {
+                if (e.acceleration.x > 15 || e.acceleration.y > 15) {
+                    shakeCount++;
+                if (shakeCount === 3) {
+                    alert('*** SHAKE BONUS UNLOCKED! ***\n\nYou won an extra $100 credit!\n\nKeep shaking for more rewards!');
+                    shakeCount = 0;
+                }
+                }
+            });
+        }
+
+        // auto-scroll to deals occasionally
+        setTimeout(() => {
+            const lightning = document.querySelector('.lightning-section');
+            if (lightning) {
+                lightning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 30000);
+
+        // fake typing in reviews
+        setInterval(() => {
+            const reviews = document.querySelectorAll('.review-text');
+            const randomReview = reviews[Math.floor(Math.random() * reviews.length)];
+            const emojis = ['!!', '100%', '[HOT]', 'WOW', '<3', '+1', '***'];
+            if (!randomReview.textContent.endsWith('!!')) {
+                randomReview.textContent += ' ' + emojis[Math.floor(Math.random() * emojis.length)];
+            }
+        }, 8000);
+
+        // persistent bottom cart reminder
+        setTimeout(() => {
+            const cartReminder = document.createElement('div');
+            cartReminder.style.cssText = `
+                position: fixed;
+                bottom: 50px;
+                right: 20px;
+                background: linear-gradient(135deg, #ff4444, #ff0000);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 1500;
+                animation: cartBounce 1s infinite;
+                cursor: pointer;
+                box-shadow: 0 5px 20px rgba(255,0,0,0.5);
+            `;
+            cartReminder.innerHTML = '[CART] <strong>3 items</strong> in cart!<br><small>Complete order before they sell out!</small>';
+            cartReminder.onclick = () => alert('Your cart contains:\n\n• iPhone 15 Pro - $0.99\n• MacBook Pro - $1.99\n• PS5 Bundle - $2.49\n\nTotal: $5.47\n\nCheckout now to claim these deals!');
+            document.body.appendChild(cartReminder);
+            
+            const style = document.createElement('style');
+            style.textContent = '@keyframes cartBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }';
+            document.head.appendChild(style);
+        }, 20000);
+
+        // ============ NEW SCAM FEATURES ============
+
+        // show session warning
+        setTimeout(() => {
+            document.getElementById('sessionWarning').style.display = 'block';
+        }, 10000);
+
+        // eternal progress bar that never completes
+        let eternalProgress = 0;
+        const eternalStatuses = [
+            'initializing verification system...',
+            'connecting to prize server...',
+            'validating user credentials...',
+            'checking prize availability...',
+            'verifying location data...',
+            'processing eligibility...',
+            'almost there...',
+            'finalizing verification...',
+            'just a moment longer...',
+            'nearly complete...'
+        ];
+        
+        setInterval(() => {
+            if (eternalProgress < 99) {
+                // slow down as it gets higher
+                const increment = eternalProgress < 50 ? Math.random() * 5 : 
+                                  eternalProgress < 80 ? Math.random() * 2 : 
+                                  eternalProgress < 95 ? Math.random() * 0.5 : 
+                                  Math.random() * 0.1;
+                eternalProgress = Math.min(99, eternalProgress + increment);
+                document.getElementById('eternalFill').style.width = eternalProgress + '%';
+                document.getElementById('eternalPercent').textContent = Math.floor(eternalProgress) + '%';
+                document.getElementById('eternalStatus').textContent = eternalStatuses[Math.floor(eternalProgress / 10)] || eternalStatuses[9];
+            }
+        }, 500);
+
+        // fake download button
+        function fakeDownload() {
+            alert('DOWNLOAD STARTING...\n\nPlease wait while we prepare your verification certificate.\n\nNOTE: You may be prompted to install a browser extension for optimal security.');
+            
+            setTimeout(() => {
+                alert('DOWNLOAD PAUSED\n\nTo continue your download, please complete a short survey.\n\nThis helps us verify you are a real person.');
+            }, 2000);
+        }
+
+        // show system alert
+        setTimeout(() => {
+            document.getElementById('systemAlert').style.display = 'block';
+        }, 35000);
+
+        function closeSystemAlert() {
+            document.getElementById('systemAlert').style.display = 'none';
+        }
+
+        // show cookie banner
+        setTimeout(() => {
+            document.getElementById('cookieBanner').style.display = 'block';
+        }, 5000);
+
+        function closeCookieBanner() {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        // show captcha
+        setTimeout(() => {
+            document.getElementById('captchaOverlay').style.display = 'flex';
+        }, 45000);
+
+        let captchaAttempts = 0;
+        function verifyCaptcha() {
+            const main = document.getElementById('captchaMain');
+            const loading = document.getElementById('captchaLoading');
+            const error = document.getElementById('captchaError');
+            
+            main.style.display = 'none';
+            loading.style.display = 'block';
+            
+            setTimeout(() => {
+                loading.style.display = 'none';
+                main.style.display = 'block';
+                captchaAttempts++;
+                
+                if (captchaAttempts < 3) {
+                    error.style.display = 'block';
+                    document.getElementById('captchaCheck').checked = false;
+                } else {
+                    document.getElementById('captchaOverlay').style.display = 'none';
+                    alert('VERIFICATION SUCCESSFUL!\n\nYou have been verified as human.\n\nYour prize eligibility has been confirmed!');
+                }
+            }, 2000);
+        }
+
+        // show age verification
+        setTimeout(() => {
+            document.getElementById('ageOverlay').style.display = 'flex';
+        }, 55000);
+
+        function verifyAge() {
+            const month = document.getElementById('ageMonth').value;
+            const day = document.getElementById('ageDay').value;
+            const year = document.getElementById('ageYear').value;
+            
+            if (month === 'month' || day === 'day' || year === 'year') {
+                alert('ERROR: Please select your complete date of birth.');
+                return;
+            }
+            
+            document.getElementById('ageOverlay').style.display = 'none';
+            alert('AGE VERIFIED!\n\nThank you for verifying your age.\n\nYou are now eligible for all prize categories including 18+ exclusive rewards!');
+        }
+
+        // fake unsubscribe that requires more steps
+        function fakeUnsubscribe() {
+            alert('UNSUBSCRIBE REQUEST RECEIVED\n\nTo complete your unsubscribe request:\n\n1. Verify your email\n2. Complete a short survey\n3. Wait 30 business days for processing\n4. Confirm via phone call\n\nOr click "Cancel" to keep receiving amazing deals!');
+        }
+
+        // more aggressive popups
+        let popupCount = 0;
+        setInterval(() => {
+            popupCount++;
+            if (popupCount % 5 === 0) {
+                const messages = [
+                    'ALERT: Your prize is about to expire!',
+                    'WARNING: Other users are claiming YOUR prize!',
+                    'NOTICE: Limited time offer ending soon!',
+                    'URGENT: Action required to secure your reward!',
+                    'IMPORTANT: Prize verification pending!'
+                ];
+                if (Math.random() > 0.5) {
+                    alert(messages[Math.floor(Math.random() * messages.length)] + '\n\nClick OK to continue.');
+                }
+            }
+        }, 15000);
+
+        // detect ad blocker and shame user
+        setTimeout(() => {
+            const adTest = document.createElement('div');
+            adTest.innerHTML = '&nbsp;';
+            adTest.className = 'adsbox';
+            document.body.appendChild(adTest);
+            
+            setTimeout(() => {
+                if (adTest.offsetHeight === 0) {
+                    alert('AD BLOCKER DETECTED!\n\nWe noticed you are using an ad blocker.\n\nTo claim your prize, please disable your ad blocker and refresh the page.\n\nWe promise our ads are 100% safe and relevant!');
+                }
+                adTest.remove();
+            }, 100);
+        }, 8000);
+
+        // fake "logging out" warning
+        let idleTime = 0;
+        setInterval(() => {
+            idleTime++;
+            if (idleTime > 60) {
+                alert('SESSION TIMEOUT WARNING!\n\nYou have been idle for too long.\n\nClick OK to keep your session active and preserve your prize eligibility!');
+                idleTime = 0;
+            }
+        }, 1000);
+
+        document.addEventListener('mousemove', () => { idleTime = 0; });
+        document.addEventListener('keypress', () => { idleTime = 0; });
+
+        // price manipulation - show different prices
+        setInterval(() => {
+            document.querySelectorAll('.new-price').forEach(el => {
+                const prices = ['$0.00', '$0.01', '$0.99', '$1.99', 'FREE'];
+                if (Math.random() > 0.9) {
+                    el.textContent = prices[Math.floor(Math.random() * prices.length)];
+                }
+            });
+        }, 10000);
+
+        // fake "other users" viewing
+        setInterval(() => {
+            const count = 50 + Math.floor(Math.random() * 200);
+            const elements = document.querySelectorAll('.sold-text');
+            elements.forEach(el => {
+                if (Math.random() > 0.7) {
+                    el.textContent = count + ' users viewing this!';
+                }
+            });
+        }, 7000);
+
+        // hit counter incrementer
+        setInterval(() => {
+            for (let i = 7; i >= 1; i--) {
+                const el = document.getElementById('hitCount' + i);
+                if (el) {
+                    let val = parseInt(el.textContent);
+                    val++;
+                    if (val > 9) {
+                        val = 0;
+                    } else {
+                        el.textContent = val;
+                        break;
+                    }
+                    el.textContent = val;
+                }
+            }
+        }, 500);
+
+        // fake error sounds (beep simulation via console)
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                console.log('BEEP! System alert triggered');
+            }
+        }, 3000);
+
+        // more aggressive alerts with bad grammar
+        const scamAlerts = [
+            'CONGRADULATIONS!! You are win the prize!! Click OK for claim now!!',
+            'WARNING!! Your computer have virus!! Download antivirus for free!!',
+            'ALERT!! You are selected for special reward!! Do not close this window!!',
+            'IMPORTANT!! Your prize expire in 5 minute!! Claim now or lose forever!!',
+            'DANGER!! Hacker is try to steal your data!! Click here for protection!!',
+            'NOTICE!! Microsoft detect problem on your computer!! Call support now!!',
+            'URGENT!! Your IP address have been compromise!! Verify identity now!!'
+        ];
+
+        setTimeout(() => {
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    alert(scamAlerts[Math.floor(Math.random() * scamAlerts.length)]);
+                }
+            }, 20000);
+        }, 60000);
+
+        // prevent back button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+            alert('You cannot go back!! Your prize will be lost!! Stay on this page to claim!!');
+        };
+
+        // fake downloading message
+        setInterval(() => {
+            if (Math.random() > 0.97) {
+                const fakeDownload = document.createElement('div');
+                fakeDownload.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#ffffcc;border-top:2px solid #cc9900;padding:10px;font-family:Tahoma;font-size:11px;z-index:9999;';
+                fakeDownload.innerHTML = '<strong>Download Complete:</strong> prize_claim_form.exe - <a href="#" onclick="claimPrize();return false;" style="color:blue;">Run</a> | <a href="#" onclick="this.parentNode.remove();return false;" style="color:blue;">Delete</a>';
+                document.body.appendChild(fakeDownload);
+            }
+        }, 30000);
+
+        // change cursor to wait periodically
+        setInterval(() => {
+            document.body.style.cursor = 'wait';
+            setTimeout(() => {
+                document.body.style.cursor = 'default';
+            }, 2000);
+        }, 45000);
+    </script>
+</body>
+</html>

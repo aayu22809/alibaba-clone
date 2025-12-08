@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLAIM YOUR PRIZE - FINAL STEP!!!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 50% 30%, #ff000033 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 70%, #00ff0033 0%, transparent 50%),
+                #000;
+            z-index: -1;
+        }
+
+        .mega-bar {
+            background: #ff0000;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: lowercase;
+            animation: megaFlash 0.3s infinite;
+        }
+
+        @keyframes megaFlash {
+            0%, 100% { background: #ff0000; color: #fff; }
+            50% { background: #ffff00; color: #000; }
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #111;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            padding: 12px 25px;
+            background: #222;
+            color: #ff0000;
+            text-decoration: none;
+            border: 2px solid #ff0000;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        nav a:hover {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff0000;
+            font-size: 2rem;
+            text-transform: lowercase;
+            margin: 30px 0;
+            text-shadow: 0 0 20px #ff0000;
+            animation: titlePulse 0.5s infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Step Progress Bar */
+        .step-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .step-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: #333;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            border: 3px solid #333;
+        }
+
+        .step.active .step-circle {
+            background: #00ff00;
+            border-color: #00ff00;
+            color: #000;
+        }
+
+        .step.completed .step-circle {
+            background: #00ff00;
+            border-color: #00ff00;
+            color: #000;
+        }
+
+        .step.completed .step-circle::after {
+            content: '[OK]';
+            font-size: 0.7rem;
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .step.active .step-label {
+            color: #00ff00;
+        }
+
+        /* Urgency Section */
+        .urgency-section {
+            background: linear-gradient(135deg, #1a0000, #000);
+            border: 5px solid #ff0000;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            animation: urgencyPulse 1s infinite;
+        }
+
+        @keyframes urgencyPulse {
+            0%, 100% { box-shadow: 0 0 20px #ff0000; }
+            50% { box-shadow: 0 0 40px #ff0000; }
+        }
+
+        .urgency-section h2 {
+            color: #ffff00;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            font-family: monospace;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            margin: 15px 0;
+        }
+
+        .spots-left {
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        .spots-num {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Prize Summary */
+        .prize-summary {
+            background: #0a0a0a;
+            border: 3px solid #00ff00;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .prize-summary h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .prize-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .prize-item .name {
+            color: #fff;
+        }
+
+        .prize-item .value {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .prize-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            font-size: 1.3rem;
+            border-top: 2px solid #00ff00;
+            margin-top: 10px;
+        }
+
+        .prize-total .name {
+            color: #ffff00;
+        }
+
+        .prize-total .value {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Multi-step Form */
+        .claim-form {
+            background: linear-gradient(135deg, #0a0a0a, #000);
+            border: 4px solid #00ff00;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-header {
+            color: #00ff00;
+            text-transform: lowercase;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #aaa;
+            margin-bottom: 8px;
+            text-transform: lowercase;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: #111;
+            border: 2px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #00ff00;
+            outline: none;
+        }
+
+        .required {
+            color: #ff0000;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Hidden Fees Section */
+        .fees-section {
+            background: #111;
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .fees-section h4 {
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .fee-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .fee-item .name {
+            color: #888;
+        }
+
+        .fee-item .value {
+            color: #888;
+        }
+
+        .fee-item.revealed {
+            animation: feeReveal 0.5s ease-out;
+        }
+
+        @keyframes feeReveal {
+            0% { background: #ff000044; }
+            100% { background: transparent; }
+        }
+
+        .fee-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-weight: bold;
+            margin-top: 10px;
+            border-top: 2px solid #ff0000;
+        }
+
+        .fee-total .name {
+            color: #ff0000;
+        }
+
+        .fee-total .value {
+            color: #ff0000;
+        }
+
+        .security-note {
+            background: #001a00;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #00ff00;
+            text-transform: lowercase;
+        }
+
+        .next-btn, .prev-btn {
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-transform: lowercase;
+            margin: 5px;
+        }
+
+        .next-btn {
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            animation: submitPulse 0.3s infinite;
+        }
+
+        @keyframes submitPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px #00ff00; }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px #00ff00; }
+        }
+
+        .prev-btn {
+            background: #333;
+            color: #888;
+            font-size: 0.8rem;
+            padding: 10px 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 25px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            border: 4px solid #fff;
+            cursor: pointer;
+            text-transform: lowercase;
+            animation: submitPulse 0.3s infinite;
+        }
+
+        /* Processing Overlay */
+        .processing-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .processing-box {
+            background: #000;
+            border: 4px solid #00ff00;
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .processing-box h2 {
+            color: #00ff00;
+            margin-bottom: 30px;
+            text-transform: lowercase;
+        }
+
+        .processing-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid #333;
+            border-top-color: #00ff00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-steps {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .processing-step {
+            padding: 10px 0;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .processing-step.active {
+            color: #ffff00;
+        }
+
+        .processing-step.complete {
+            color: #00ff00;
+        }
+
+        .processing-step .status {
+            width: 20px;
+        }
+
+        .processing-progress {
+            background: #333;
+            height: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .processing-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #ffff00);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Error Modal */
+        .error-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,0,0,0.9);
+            z-index: 3500;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-box {
+            background: #000;
+            border: 5px solid #ffff00;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            animation: errorShake 0.3s infinite;
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-box h2 {
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
+
+        .error-box p {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .error-box button {
+            padding: 15px 40px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .error-box .small-btn {
+            background: transparent;
+            color: #666;
+            font-size: 0.6rem;
+            border: 1px solid #333;
+            padding: 8px 15px;
+        }
+
+        /* Trust Icons */
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background: #0a0a0a;
+        }
+
+        .trust-icon {
+            background: #111;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: lowercase;
+        }
+
+        /* Fine Print */
+        .fine-print {
+            margin-top: 30px;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            font-size: 0.55rem;
+            color: #333;
+            line-height: 1.6;
+            text-transform: lowercase;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 320px;
+            background: linear-gradient(180deg, #1a3300, #0a1a00);
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            z-index: 1500;
+            box-shadow: 0 0 30px #00ff0044;
+        }
+
+        .chat-header {
+            background: #00ff00;
+            color: #000;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 7px 7px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-header .status::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-body {
+            padding: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            background: #0a0a0a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .chat-message.agent {
+            border-left: 3px solid #00ff00;
+        }
+
+        .chat-typing {
+            color: #00ff00;
+            font-size: 0.85rem;
+            padding: 5px 0;
+        }
+
+        .chat-typing span {
+            animation: typingDot 1.4s infinite;
+        }
+
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { opacity: 0; }
+            30% { opacity: 1; }
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            border-top: 1px solid #333;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .claim-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff0000;
+            padding: 15px;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .claim-counter .num {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .claim-counter .label {
+            font-size: 0.8rem;
+            text-transform: lowercase;
+        }
+
+        /* Exit popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-box {
+            background: linear-gradient(180deg, #1a0000, #000);
+            border: 5px solid #ff0000;
+            padding: 40px;
+            max-width: 450px;
+            text-align: center;
+            animation: popupShake 0.2s infinite;
+        }
+
+        @keyframes popupShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .popup-box h2 {
+            color: #ff0000;
+            text-transform: lowercase;
+            margin-bottom: 20px;
+        }
+
+        .popup-box p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .popup-box button {
+            padding: 15px 40px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 600px) {
+            .chat-widget { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+
+    <div class="mega-bar">
+        final step! complete this form to receive your free prize! hurry - <span id="topSpots">3</span> spots left!
+    </div>
+
+    <nav>
+        <a href="index.html">home</a>
+        <a href="about.html">winners</a>
+        <a href="gallery.html">prizes</a>
+        <a href="games.html">free gifts</a>
+        <a href="contact.html">claim now</a>
+    </nav>
+
+    <div class="claim-counter">
+        <div class="num" id="claimingNow">247</div>
+        <div class="label">claiming right now</div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-header">
+            <span>live support</span>
+            <span class="status">online</span>
+        </div>
+        <div class="chat-body">
+            <div class="chat-message agent">
+                Hi! I'm Sarah, your prize claim assistant. I see you've won some amazing prizes today! Do you need help completing your claim?
+            </div>
+            <div class="chat-message agent" id="chatMessage2" style="display: none;">
+                I notice you're taking a while to complete the form. Remember, your prizes will expire soon! Let me know if you have any questions!
+            </div>
+            <div class="chat-typing" id="chatTyping" style="display: none;">
+                Sarah is typing<span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="type a message...">
+            <button onclick="sendChat()">send</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>claim your prize - final step!</h1>
+
+        <!-- Step Progress -->
+        <div class="step-progress">
+            <div class="step active" id="step1indicator">
+                <div class="step-circle">1</div>
+                <div class="step-label">personal info</div>
+            </div>
+            <div class="step" id="step2indicator">
+                <div class="step-circle">2</div>
+                <div class="step-label">shipping</div>
+            </div>
+            <div class="step" id="step3indicator">
+                <div class="step-circle">3</div>
+                <div class="step-label">verification</div>
+            </div>
+            <div class="step" id="step4indicator">
+                <div class="step-circle">4</div>
+                <div class="step-label">confirm</div>
+            </div>
+        </div>
+
+        <div class="urgency-section">
+            <h2>warning: your prize expires in:</h2>
+            <div class="countdown" id="countdown">02:59</div>
+            <p class="spots-left">only <span class="spots-num" id="spots">3</span> prizes remaining!</p>
+        </div>
+
+        <!-- Prize Summary -->
+        <div class="prize-summary">
+            <h3>your prizes waiting to be claimed:</h3>
+            <div class="prize-item">
+                <span class="name">iPhone 15 Pro Max</span>
+                <span class="value">$1,199.00</span>
+            </div>
+            <div class="prize-item">
+                <span class="name">$500 Amazon Gift Card</span>
+                <span class="value">$500.00</span>
+            </div>
+            <div class="prize-item">
+                <span class="name">Mystery Box Bonus</span>
+                <span class="value">$250.00</span>
+            </div>
+            <div class="prize-item">
+                <span class="name">VIP Loyalty Reward</span>
+                <span class="value">$100.00</span>
+            </div>
+            <div class="prize-total">
+                <span class="name">TOTAL VALUE:</span>
+                <span class="value">$2,049.00</span>
+            </div>
+        </div>
+
+        <!-- Multi-step Form -->
+        <form class="claim-form" id="claimForm" onsubmit="return false;">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active" id="step1">
+                <h3 class="form-header">step 1: personal information</h3>
+
+                <div class="form-group">
+                    <label>full legal name <span class="required">*</span></label>
+                    <input type="text" id="fullName" placeholder="enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>email address <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>phone number <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="enter your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>date of birth <span class="required">*</span></label>
+                    <div class="form-row">
+                        <select id="dobMonth">
+                            <option>month</option>
+                            <option>01</option><option>02</option><option>03</option>
+                            <option>04</option><option>05</option><option>06</option>
+                            <option>07</option><option>08</option><option>09</option>
+                            <option>10</option><option>11</option><option>12</option>
+                        </select>
+                        <select id="dobDay">
+                            <option>day</option>
+                            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                            <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+                            <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+                            <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
+                            <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>
+                        </select>
+                        <select id="dobYear">
+                            <option>year</option>
+                            <option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option>
+                            <option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option>
+                            <option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option>
+                            <option>1991</option><option>1990</option><option>1989</option><option>1988</option><option>1987</option>
+                            <option>1986</option><option>1985</option><option>1984</option><option>1983</option><option>1982</option>
+                            <option>1981</option><option>1980</option><option>1979</option><option>1978</option><option>1977</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="security-note">
+                    [LOCK] your information is encrypted with 256-bit ssl security
+                </div>
+
+                <button type="button" class="next-btn" onclick="nextStep(2)">continue to shipping >></button>
+            </div>
+
+            <!-- Step 2: Shipping Info -->
+            <div class="form-step" id="step2">
+                <h3 class="form-header">step 2: shipping address</h3>
+
+                <div class="form-group">
+                    <label>street address <span class="required">*</span></label>
+                    <input type="text" placeholder="enter your street address" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>city <span class="required">*</span></label>
+                        <input type="text" placeholder="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label>state <span class="required">*</span></label>
+                        <input type="text" placeholder="state" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>zip code <span class="required">*</span></label>
+                        <input type="text" placeholder="zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label>country <span class="required">*</span></label>
+                        <select>
+                            <option>United States</option>
+                            <option>Canada</option>
+                            <option>United Kingdom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Hidden Fees Appear -->
+                <div class="fees-section" id="feesSection1" style="display: none;">
+                    <h4>shipping & handling fees:</h4>
+                    <div class="fee-item">
+                        <span class="name">Standard Shipping</span>
+                        <span class="value">$9.99</span>
+                    </div>
+                    <div class="fee-item">
+                        <span class="name">Handling Fee</span>
+                        <span class="value">$4.99</span>
+                    </div>
+                    <div class="fee-item">
+                        <span class="name">Insurance</span>
+                        <span class="value">$7.99</span>
+                    </div>
+                </div>
+
+                <button type="button" class="prev-btn" onclick="prevStep(1)"><< back</button>
+                <button type="button" class="next-btn" onclick="nextStep(3)">continue to verification >></button>
+            </div>
+
+            <!-- Step 3: Payment/Verification -->
+            <div class="form-step" id="step3">
+                <h3 class="form-header">step 3: payment verification</h3>
+                <p style="color: #ffff00; text-align: center; margin-bottom: 20px;">Credit card required for $0.00 verification charge only!</p>
+
+                <div class="form-group">
+                    <label>card number <span class="required">*</span></label>
+                    <input type="text" placeholder="1234 5678 9012 3456" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>expiration <span class="required">*</span></label>
+                        <input type="text" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label>cvv <span class="required">*</span></label>
+                        <input type="text" placeholder="123" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>name on card <span class="required">*</span></label>
+                    <input type="text" placeholder="enter name exactly as on card" required>
+                </div>
+
+                <div class="form-group">
+                    <label>social security number (optional but speeds up verification)</label>
+                    <input type="text" placeholder="XXX-XX-XXXX">
+                </div>
+
+                <!-- More Hidden Fees -->
+                <div class="fees-section" id="feesSection2" style="display: none;">
+                    <h4>verification & processing fees:</h4>
+                    <div class="fee-item">
+                        <span class="name">Verification Fee</span>
+                        <span class="value">$19.99</span>
+                    </div>
+                    <div class="fee-item">
+                        <span class="name">Processing Fee</span>
+                        <span class="value">$14.99</span>
+                    </div>
+                    <div class="fee-item">
+                        <span class="name">Priority Processing</span>
+                        <span class="value">$24.99</span>
+                    </div>
+                </div>
+
+                <div class="security-note">
+                    [LOCK] we will charge $0.00 to verify your card. no other charges will be made.*<br>
+                    <span style="font-size: 0.6rem; color: #666;">*except applicable fees shown above</span>
+                </div>
+
+                <button type="button" class="prev-btn" onclick="prevStep(2)"><< back</button>
+                <button type="button" class="next-btn" onclick="nextStep(4)">continue to confirm >></button>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div class="form-step" id="step4">
+                <h3 class="form-header">step 4: confirm your claim</h3>
+
+                <div class="fees-section" id="finalFees">
+                    <h4>order summary:</h4>
+                    <div class="fee-item">
+                        <span class="name">Prize Value</span>
+                        <span class="value" style="color: #00ff00;">$2,049.00</span>
+                    </div>
+                    <div class="fee-item">
+                        <span class="name">Your Price</span>
+                        <span class="value" style="color: #00ff00;">$0.00</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Standard Shipping</span>
+                        <span class="value">$9.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Handling Fee</span>
+                        <span class="value">$4.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Insurance</span>
+                        <span class="value">$7.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Verification Fee</span>
+                        <span class="value">$19.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Processing Fee</span>
+                        <span class="value">$14.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Priority Processing</span>
+                        <span class="value">$24.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Convenience Fee</span>
+                        <span class="value">$9.99</span>
+                    </div>
+                    <div class="fee-item revealed">
+                        <span class="name">Service Charge</span>
+                        <span class="value">$6.99</span>
+                    </div>
+                    <div class="fee-total">
+                        <span class="name">TOTAL DUE TODAY:</span>
+                        <span class="value">$99.92</span>
+                    </div>
+                </div>
+
+                <p style="color: #888; font-size: 0.75rem; text-align: center; margin: 15px 0;">
+                    By clicking "Submit", you agree to be charged $99.92 today, plus $99.99/month subscription fee starting in 3 days.
+                </p>
+
+                <button type="button" class="prev-btn" onclick="prevStep(3)"><< back</button>
+                <button type="submit" class="submit-btn" onclick="submitClaim()">submit claim & pay $99.92</button>
+            </div>
+        </form>
+
+        <div class="trust-icons">
+            <div class="trust-icon">ssl secure</div>
+            <div class="trust-icon">verified site</div>
+            <div class="trust-icon">100% safe</div>
+            <div class="trust-icon">trusted</div>
+            <div class="trust-icon">money back*</div>
+        </div>
+
+        <div class="fine-print">
+            terms and conditions: by submitting this form you agree to pay $99.92 processing fee plus $99.99/month subscription fee after 3-day trial period. cancellation requires written notice sent by certified mail to our office in [country redacted] received at least 30 business days before billing date. all personal information including credit card, social security number, and personal details may be sold to third parties for marketing, research, and other purposes. "free" refers to the prize itself only; all fees, charges, and subscriptions are additional. shipping time is 6-8 weeks minimum, up to 6 months. prizes may be substituted with items of equal or lesser value at our discretion. your credit card will be charged immediately and recurring monthly thereafter until cancelled. all sales final. no refunds under any circumstances including fraud, identity theft, or dissatisfaction. by clicking submit you waive all rights to dispute charges with your bank. this is definitely not a scam. would a scam website explicitly say "this is not a scam"? exactly. therefore this is legitimate. qed. by reading this fine print you agree to additional $50 fine print reading fee. gotcha!
+        </div>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-box">
+            <h2>processing your claim...</h2>
+            <div class="processing-spinner"></div>
+            <div class="processing-steps">
+                <div class="processing-step" id="pStep1">
+                    <span class="status">[ ]</span>
+                    <span>Verifying personal information...</span>
+                </div>
+                <div class="processing-step" id="pStep2">
+                    <span class="status">[ ]</span>
+                    <span>Validating shipping address...</span>
+                </div>
+                <div class="processing-step" id="pStep3">
+                    <span class="status">[ ]</span>
+                    <span>Processing payment verification...</span>
+                </div>
+                <div class="processing-step" id="pStep4">
+                    <span class="status">[ ]</span>
+                    <span>Reserving your prizes...</span>
+                </div>
+                <div class="processing-step" id="pStep5">
+                    <span class="status">[ ]</span>
+                    <span>Finalizing claim...</span>
+                </div>
+            </div>
+            <div class="processing-progress">
+                <div class="processing-progress-fill" id="processingFill"></div>
+            </div>
+            <p style="color: #888; font-size: 0.8rem;">Please do not close this window...</p>
+        </div>
+    </div>
+
+    <!-- Error Overlay -->
+    <div class="error-overlay" id="errorOverlay">
+        <div class="error-box">
+            <h2>PAYMENT ERROR!</h2>
+            <p>Your card was declined for the initial $0.00 verification charge.</p>
+            <p>This is probably because your bank flagged this as a suspicious transaction (they just don't understand how legitimate we are).</p>
+            <p style="color: #ffff00;">Please try a different card or call your bank to authorize this charge.</p>
+            <button onclick="closeError()">try again with different card</button>
+            <br>
+            <button class="small-btn" onclick="closeError()">i give up and don't want free prizes</button>
+        </div>
+    </div>
+
+    <!-- Exit Popup -->
+    <div class="popup-overlay" id="exitPopup">
+        <div class="popup-box">
+            <h2>wait! don't leave!</h2>
+            <p>You're SO CLOSE to claiming $2,049 in FREE prizes!</p>
+            <p>If you leave now, someone else will claim YOUR prizes!</p>
+            <p style="color: #ff0000;">Your spot will be given away in <span id="exitTimer">60</span> seconds!</p>
+            <button onclick="closePopup()">stay and complete my claim!</button>
+        </div>
+    </div>
+
+    <script>
+var currentStep=1,mins=2,secs=59,exitShown=false
+function nextStep(s){document.getElementById('step'+currentStep).classList.remove('active');document.getElementById('step'+s).classList.add('active');document.getElementById('step'+currentStep+'indicator').classList.remove('active');document.getElementById('step'+currentStep+'indicator').classList.add('completed');document.getElementById('step'+s+'indicator').classList.add('active');currentStep=s;if(s===2)setTimeout(function(){document.getElementById('feesSection1').style.display='block'},1000);if(s===3)setTimeout(function(){document.getElementById('feesSection2').style.display='block'},1000);window.scrollTo(0,0)}
+function prevStep(s){document.getElementById('step'+currentStep).classList.remove('active');document.getElementById('step'+s).classList.add('active');document.getElementById('step'+currentStep+'indicator').classList.remove('active');document.getElementById('step'+s+'indicator').classList.remove('completed');document.getElementById('step'+s+'indicator').classList.add('active');currentStep=s;window.scrollTo(0,0)}
+
+function submitClaim(){document.getElementById('processingOverlay').style.display='flex';var steps=['pStep1','pStep2','pStep3','pStep4','pStep5'];steps.forEach(function(stepId,index){setTimeout(function(){if(index>0){document.getElementById(steps[index-1]).classList.remove('active');document.getElementById(steps[index-1]).classList.add('complete');document.getElementById(steps[index-1]).querySelector('.status').textContent='[OK]'}document.getElementById(stepId).classList.add('active');document.getElementById('processingFill').style.width=((index+1)/steps.length)*100+'%'},index*2000)});setTimeout(function(){document.getElementById('processingOverlay').style.display='none';document.getElementById('errorOverlay').style.display='flex'},11000)}
+function closeError(){document.getElementById('errorOverlay').style.display='none';alert('SYSTEM MESSAGE:\n\nWe apologize for the inconvenience.\n\nYour claim has been saved. Please try again with a different payment method.\n\nAlternatively, call our "support" line at 1-900-SCAM-NOW ($9.99/minute) for "assistance".')}
+
+setInterval(function(){secs--;if(secs<0){secs=59;mins--}if(mins<0){mins=2;secs=59}document.getElementById('countdown').textContent=String(mins).padStart(2,'0')+':'+String(secs).padStart(2,'0')},1000)
+setInterval(function(){var sp=document.getElementById('spots');var ts=document.getElementById('topSpots');var n=parseInt(sp.textContent);if(Math.random()>0.7)n=Math.max(1,n-1);if(n===1&&Math.random()>0.9)n=3;sp.textContent=n;ts.textContent=n},4000)
+setInterval(function(){document.getElementById('claimingNow').textContent=200+Math.floor(Math.random()*100)},2000)
+
+setTimeout(function(){document.getElementById('chatTyping').style.display='block'},10000)
+setTimeout(function(){document.getElementById('chatTyping').style.display='none';document.getElementById('chatMessage2').style.display='block'},15000)
+function sendChat(){alert('Sarah: Thanks for your message!\n\nI\'m a bot and cannot actually help you.\n\nPlease complete the form to claim your prizes!\n\nRemember, your prizes expire soon!')}
+
+document.addEventListener('mouseleave',function(e){if(e.clientY<0&&!exitShown){exitShown=true;document.getElementById('exitPopup').style.display='flex';var exitSecs=60;var ei=setInterval(function(){exitSecs--;document.getElementById('exitTimer').textContent=exitSecs;if(exitSecs<=0){clearInterval(ei);exitSecs=60}},1000)}})
+function closePopup(){document.getElementById('exitPopup').style.display='none'}
+document.addEventListener('contextmenu',function(e){e.preventDefault();alert('SECURITY ALERT!\n\nRight-click disabled to protect your payment information!\n\nPlease complete the form to claim your prizes.')})
+window.addEventListener('beforeunload',function(e){e.preventDefault();e.returnValue='WAIT! Your claim is incomplete! Your prizes will be given to someone else!'})
+history.pushState(null,null,location.href)
+window.onpopstate=function(){history.go(1);alert('You cannot go back!\n\nYour prizes are waiting! Complete the form to claim them!')}
+    </script>
+</body>
+</html>

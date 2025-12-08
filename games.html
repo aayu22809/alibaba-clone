@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE GAMES - WIN BIG PRIZES!!!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 80%, #ff00ff22 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 20%, #00ffff22 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, #ffff0011 0%, transparent 60%),
+                #000;
+            z-index: -1;
+        }
+
+        .flash-bar {
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 400% 100%;
+            animation: moveGradient 2s linear infinite;
+            padding: 12px;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        /* VIP level bar */
+        .vip-bar {
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .vip-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vip-badge {
+            background: linear-gradient(135deg, #000, #333);
+            color: #ffd700;
+            padding: 5px 15px;
+            border: 2px solid #ffd700;
+            font-weight: bold;
+        }
+
+        .vip-progress {
+            flex: 1;
+            min-width: 200px;
+            background: #000;
+            height: 20px;
+            border: 2px solid #ffd700;
+            position: relative;
+        }
+
+        .vip-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            width: 65%;
+            transition: width 0.5s;
+        }
+
+        .vip-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .vip-points {
+            color: #000;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #111;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            padding: 12px 25px;
+            background: #222;
+            color: #00ffff;
+            text-decoration: none;
+            border: 2px solid #00ffff;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ffff;
+            font-size: 2rem;
+            text-transform: lowercase;
+            margin: 30px 0;
+            text-shadow: 0 0 20px #00ffff;
+        }
+
+        /* Achievement notification */
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ffd700, #ff6600);
+            color: #000;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 2000;
+            display: none;
+            animation: achievementSlide 0.5s ease-out;
+            box-shadow: 0 5px 30px rgba(255,215,0,0.5);
+        }
+
+        @keyframes achievementSlide {
+            0% { transform: translateX(400px); }
+            100% { transform: translateX(0); }
+        }
+
+        .achievement-popup h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .achievement-popup .trophy {
+            font-size: 1.5rem;
+        }
+
+        /* Daily rewards calendar */
+        .daily-calendar {
+            background: linear-gradient(135deg, #1a0a1a, #000);
+            border: 4px solid #ff00ff;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .daily-calendar h2 {
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day {
+            background: #111;
+            border: 2px solid #333;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calendar-day.claimed {
+            background: #00ff00;
+            border-color: #00ff00;
+            color: #000;
+        }
+
+        .calendar-day.today {
+            border-color: #ff00ff;
+            animation: todayPulse 1s infinite;
+        }
+
+        @keyframes todayPulse {
+            0%, 100% { box-shadow: 0 0 10px #ff00ff; }
+            50% { box-shadow: 0 0 30px #ff00ff; }
+        }
+
+        .calendar-day.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .day-num {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .day-reward {
+            font-size: 0.7rem;
+            color: #ffff00;
+            margin-top: 5px;
+        }
+
+        .streak-bonus {
+            background: #ff0000;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px dashed #ffff00;
+        }
+
+        .streak-bonus h4 {
+            color: #ffff00;
+        }
+
+        .streak-bonus .streak-count {
+            font-size: 2rem;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Slot Machine */
+        .slot-section {
+            background: linear-gradient(135deg, #1a1a00, #000);
+            border: 5px solid #ffd700;
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .slot-section h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            text-transform: lowercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #ffd700;
+        }
+
+        .slot-machine {
+            background: linear-gradient(180deg, #333, #111);
+            border: 8px solid #ffd700;
+            border-radius: 15px;
+            padding: 30px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .slot-display {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .slot-reel {
+            width: 80px;
+            height: 100px;
+            background: #fff;
+            border: 4px solid #ffd700;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .slot-reel.spinning {
+            animation: slotSpin 0.1s infinite;
+        }
+
+        @keyframes slotSpin {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100px; }
+        }
+
+        .slot-btn {
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(180deg, #ff0000, #cc0000);
+            color: #fff;
+            border: 4px solid #ffd700;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            animation: slotPulse 0.5s infinite;
+        }
+
+        @keyframes slotPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px #ff0000; }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px #ff0000; }
+        }
+
+        .slot-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #00ff00;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: none;
+            animation: resultFlash 0.3s infinite;
+        }
+
+        @keyframes resultFlash {
+            0%, 100% { background: #00ff00; }
+            50% { background: #ffff00; }
+        }
+
+        .slot-near-miss {
+            color: #ff6600;
+            font-style: italic;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Dice Game */
+        .dice-section {
+            background: linear-gradient(135deg, #0a1a0a, #000);
+            border: 4px solid #00ff00;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .dice-section h2 {
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .dice {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border: 4px solid #00ff00;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #000;
+            font-weight: bold;
+            transition: transform 0.5s;
+        }
+
+        .dice.rolling {
+            animation: diceRoll 0.3s infinite;
+        }
+
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dice-btn {
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            background: linear-gradient(180deg, #00ff00, #009900);
+            color: #000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .dice-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffff00;
+            color: #000;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Card Flip Game */
+        .card-section {
+            background: linear-gradient(135deg, #1a0000, #000);
+            border: 4px solid #ff0000;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .card-section h2 {
+            color: #ff0000;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .card-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .game-card {
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(135deg, #333, #111);
+            border: 3px solid #ff0000;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #888;
+            transition: all 0.3s;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff000066;
+        }
+
+        .game-card.flipped {
+            background: linear-gradient(135deg, #00ff00, #009900);
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Lucky Number Generator */
+        .lucky-section {
+            background: linear-gradient(135deg, #1a001a, #000);
+            border: 4px solid #ff00ff;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .lucky-section h2 {
+            color: #ff00ff;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .lucky-display {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .lucky-ball {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff00ff, #9900ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            border: 3px solid #fff;
+        }
+
+        .lucky-ball.generating {
+            animation: luckyPulse 0.2s infinite;
+        }
+
+        @keyframes luckyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .lucky-btn {
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            background: linear-gradient(180deg, #ff00ff, #990099);
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        /* Achievements Panel */
+        .achievements-section {
+            background: #0a0a0a;
+            border: 3px solid #ffd700;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .achievements-section h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .achievement {
+            background: #111;
+            border: 2px solid #333;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .achievement.unlocked {
+            border-color: #ffd700;
+            background: linear-gradient(135deg, #1a1a00, #000);
+        }
+
+        .achievement.locked {
+            opacity: 0.5;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .achievement-name {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .achievement-desc {
+            color: #888;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .achievement-progress {
+            background: #333;
+            height: 5px;
+            margin-top: 10px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .achievement-progress-fill {
+            height: 100%;
+            background: #ffd700;
+        }
+
+        /* Referral Section */
+        .referral-section {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .referral-section h2 {
+            color: #fff;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .referral-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+        }
+
+        .referral-code {
+            background: #000;
+            padding: 15px 30px;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 1.5rem;
+            color: #ffff00;
+            border: 2px dashed #ffff00;
+            margin: 15px 0;
+        }
+
+        .referral-btn {
+            padding: 15px 40px;
+            background: #fff;
+            color: #ff416c;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 25px;
+        }
+
+        .referral-rewards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .referral-tier {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .referral-tier .count {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .referral-tier .reward {
+            font-size: 0.8rem;
+            color: #ffff00;
+        }
+
+        /* Mega Wheel */
+        .mega-wheel {
+            background: linear-gradient(135deg, #0a0a1a, #000);
+            border: 5px solid #ff00ff;
+            padding: 50px 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .mega-wheel h2 {
+            color: #ff00ff;
+            font-size: 1.8rem;
+            text-transform: lowercase;
+            margin-bottom: 10px;
+        }
+
+        .wheel-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .the-wheel {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 10px solid #fff;
+            background: conic-gradient(
+                #ff0000 0deg 36deg,
+                #ff6600 36deg 72deg,
+                #ffff00 72deg 108deg,
+                #00ff00 108deg 144deg,
+                #00ffff 144deg 180deg,
+                #0066ff 180deg 216deg,
+                #9900ff 216deg 252deg,
+                #ff00ff 252deg 288deg,
+                #ff0066 288deg 324deg,
+                #ffffff 324deg 360deg
+            );
+            transition: transform 5s cubic-bezier(0.17, 0.67, 0.03, 0.99);
+            box-shadow: 0 0 60px #ff00ff66, inset 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        .wheel-arrow {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 50px solid #ff0000;
+            filter: drop-shadow(0 0 10px #ff0000);
+        }
+
+        .spin-button {
+            margin-top: 40px;
+            padding: 25px 80px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(180deg, #ff00ff, #990099);
+            color: #fff;
+            border: 5px solid #fff;
+            cursor: pointer;
+            text-transform: lowercase;
+            animation: megaPulse 0.3s infinite;
+        }
+
+        @keyframes megaPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px #ff00ff; }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px #ff00ff; }
+        }
+
+        .wheel-prize {
+            margin-top: 25px;
+            padding: 20px;
+            background: #00ff00;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.4rem;
+            display: none;
+            animation: prizeFlash 0.3s infinite;
+        }
+
+        @keyframes prizeFlash {
+            0%, 100% { background: #00ff00; }
+            50% { background: #ffff00; }
+        }
+
+        .spins-left {
+            margin-top: 20px;
+            color: #ff0000;
+            font-size: 1.1rem;
+        }
+
+        /* Survey Section */
+        .survey-box {
+            background: linear-gradient(135deg, #1a0a00, #000);
+            border: 4px solid #ff6600;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .survey-box h3 {
+            color: #ff6600;
+            font-size: 1.5rem;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+        }
+
+        .survey-list {
+            list-style: none;
+        }
+
+        .survey-list li {
+            background: #111;
+            border: 2px solid #ff6600;
+            padding: 15px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: lowercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .survey-list li:hover {
+            background: #ff6600;
+            color: #000;
+        }
+
+        .survey-reward {
+            background: #00ff00;
+            color: #000;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Daily Bonus */
+        .daily-bonus {
+            background: #ff0000;
+            border: 5px dashed #ffff00;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            animation: bonusShake 0.2s infinite;
+        }
+
+        @keyframes bonusShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .daily-bonus h3 {
+            color: #ffff00;
+            font-size: 1.8rem;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+        }
+
+        .bonus-btn {
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            background: #ffff00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+        }
+
+        .activity-feed {
+            position: fixed;
+            right: 20px;
+            top: 180px;
+            width: 250px;
+            background: #111;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            max-height: 300px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .activity-feed h4 {
+            color: #00ff00;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+
+        .activity-item {
+            padding: 8px;
+            border-bottom: 1px solid #333;
+            font-size: 0.8rem;
+            color: #aaa;
+            animation: activitySlide 0.5s ease-out;
+        }
+
+        @keyframes activitySlide {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .activity-item span {
+            color: #ffff00;
+        }
+
+        @media (max-width: 900px) {
+            .activity-feed { display: none; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Level up modal */
+        .levelup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .levelup-box {
+            background: linear-gradient(180deg, #ffd700, #ff6600);
+            border: 5px solid #fff;
+            padding: 50px;
+            text-align: center;
+            border-radius: 20px;
+            animation: levelupBounce 0.5s ease-out;
+        }
+
+        @keyframes levelupBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .levelup-box h2 {
+            color: #000;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .levelup-box .new-level {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        .levelup-box p {
+            color: #000;
+            margin: 20px 0;
+        }
+
+        .levelup-box button {
+            padding: 15px 40px;
+            background: #000;
+            color: #ffd700;
+            border: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+
+    <div class="flash-bar">
+        congratulations! you qualify for unlimited free games today only! win big prizes!
+    </div>
+
+    <!-- VIP Progress Bar -->
+    <div class="vip-bar">
+        <div class="vip-level">
+            <div class="vip-badge">VIP LEVEL <span id="vipLevel">3</span></div>
+            <div class="vip-progress">
+                <div class="vip-progress-fill" id="vipProgressFill"></div>
+                <div class="vip-progress-text"><span id="vipXP">6,500</span> / 10,000 XP</div>
+            </div>
+        </div>
+        <div class="vip-points">
+            [COIN] <span id="totalCoins">12,500</span> COINS | [GEM] <span id="totalGems">47</span> GEMS
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">home</a>
+        <a href="about.html">winners</a>
+        <a href="gallery.html">prizes</a>
+        <a href="games.html">free gifts</a>
+        <a href="contact.html">claim now</a>
+    </nav>
+
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <h4><span class="trophy">[TROPHY]</span> ACHIEVEMENT UNLOCKED!</h4>
+        <p id="achievementText">First Spin!</p>
+    </div>
+
+    <div class="activity-feed">
+        <h4>live winners:</h4>
+        <div id="activityFeed"></div>
+    </div>
+
+    <div class="container">
+        <h1>free games - everyone wins!</h1>
+
+        <!-- Daily Calendar -->
+        <div class="daily-calendar">
+            <h2>daily login rewards - claim every day!</h2>
+            <div class="calendar-grid">
+                <div class="calendar-day claimed"><div class="day-num">1</div><div class="day-reward">$10</div></div>
+                <div class="calendar-day claimed"><div class="day-num">2</div><div class="day-reward">$25</div></div>
+                <div class="calendar-day claimed"><div class="day-num">3</div><div class="day-reward">$50</div></div>
+                <div class="calendar-day claimed"><div class="day-num">4</div><div class="day-reward">$75</div></div>
+                <div class="calendar-day today" onclick="claimDaily()"><div class="day-num">5</div><div class="day-reward">$100</div></div>
+                <div class="calendar-day locked"><div class="day-num">6</div><div class="day-reward">$150</div></div>
+                <div class="calendar-day locked"><div class="day-num">7</div><div class="day-reward">$500!</div></div>
+            </div>
+            <div class="streak-bonus">
+                <h4>current streak bonus:</h4>
+                <div class="streak-count" id="streakCount">5x MULTIPLIER!</div>
+                <p style="color: #fff; font-size: 0.8rem;">Don't break your streak! Missing a day resets to 1x!</p>
+            </div>
+        </div>
+
+        <!-- Slot Machine -->
+        <div class="slot-section">
+            <h2>mega jackpot slots</h2>
+            <p style="color: #ccc;">Match 3 symbols to win! Every spin has a chance at the $10,000 JACKPOT!</p>
+            
+            <div class="slot-machine">
+                <div class="slot-display">
+                    <div class="slot-reel" id="reel1">7</div>
+                    <div class="slot-reel" id="reel2">7</div>
+                    <div class="slot-reel" id="reel3">$</div>
+                </div>
+                <button class="slot-btn" onclick="spinSlots()">SPIN!</button>
+            </div>
+            
+            <div class="slot-result" id="slotResult"></div>
+            <div class="slot-near-miss" id="slotNearMiss">SO CLOSE! You almost won the JACKPOT! Try again!</div>
+            <p style="color: #888; margin-top: 15px;">Spins remaining: <span id="slotSpins" style="color: #ffff00;">3</span> | Get more spins with credit card verification!</p>
+        </div>
+
+        <!-- Dice Game -->
+        <div class="dice-section">
+            <h2>lucky dice - roll to win!</h2>
+            <p style="color: #ccc; margin-bottom: 10px;">Roll doubles to win instant prizes! Roll 6-6 for the MEGA JACKPOT!</p>
+            
+            <div class="dice-container">
+                <div class="dice" id="dice1">?</div>
+                <div class="dice" id="dice2">?</div>
+            </div>
+            
+            <button class="dice-btn" onclick="rollDice()">roll the dice!</button>
+            <div class="dice-result" id="diceResult"></div>
+            <p style="color: #888; margin-top: 15px;">Rolls remaining: <span id="diceRolls" style="color: #00ff00;">5</span></p>
+        </div>
+
+        <!-- Card Flip Game -->
+        <div class="card-section">
+            <h2>mystery card flip</h2>
+            <p style="color: #ccc;">Pick a card! Every card is a WINNER!</p>
+            
+            <div class="card-grid">
+                <div class="game-card" onclick="flipCard(this)">?</div>
+                <div class="game-card" onclick="flipCard(this)">?</div>
+                <div class="game-card" onclick="flipCard(this)">?</div>
+                <div class="game-card" onclick="flipCard(this)">?</div>
+                <div class="game-card" onclick="flipCard(this)">?</div>
+            </div>
+            <p style="color: #ff0000; margin-top: 15px;">Cards reset in: <span id="cardTimer">04:59</span></p>
+        </div>
+
+        <!-- Lucky Number Generator -->
+        <div class="lucky-section">
+            <h2>lucky number generator</h2>
+            <p style="color: #ccc;">Generate your lucky numbers! Match 3+ to WIN!</p>
+            
+            <div class="lucky-display">
+                <div class="lucky-ball" id="ball1">?</div>
+                <div class="lucky-ball" id="ball2">?</div>
+                <div class="lucky-ball" id="ball3">?</div>
+                <div class="lucky-ball" id="ball4">?</div>
+                <div class="lucky-ball" id="ball5">?</div>
+            </div>
+            
+            <button class="lucky-btn" onclick="generateLucky()">generate my lucky numbers!</button>
+            <p style="color: #00ff00; margin-top: 15px; display: none;" id="luckyResult"></p>
+        </div>
+
+        <!-- Mega Wheel -->
+        <div class="mega-wheel">
+            <h2>mega prize wheel</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">spin to win prizes worth up to $10,000! every spin wins!</p>
+            
+            <div class="wheel-wrap">
+                <div class="wheel-arrow"></div>
+                <div class="the-wheel" id="megaWheel"></div>
+            </div>
+            
+            <button class="spin-button" onclick="spinMegaWheel()">spin to win!</button>
+            <div class="wheel-prize" id="megaPrize"></div>
+            <p class="spins-left">free spins remaining: <span id="spinsLeft">3</span></p>
+        </div>
+
+        <!-- Achievements -->
+        <div class="achievements-section">
+            <h2>achievements - unlock rewards!</h2>
+            <div class="achievements-grid">
+                <div class="achievement unlocked">
+                    <div class="achievement-icon">[TROPHY]</div>
+                    <div class="achievement-name">First Spin</div>
+                    <div class="achievement-desc">Spin the wheel once</div>
+                </div>
+                <div class="achievement unlocked">
+                    <div class="achievement-icon">[STAR]</div>
+                    <div class="achievement-name">Lucky Streak</div>
+                    <div class="achievement-desc">Win 3 games in a row</div>
+                </div>
+                <div class="achievement">
+                    <div class="achievement-icon">[CROWN]</div>
+                    <div class="achievement-name">High Roller</div>
+                    <div class="achievement-desc">Win $1,000 total</div>
+                    <div class="achievement-progress"><div class="achievement-progress-fill" style="width: 75%;"></div></div>
+                </div>
+                <div class="achievement">
+                    <div class="achievement-icon">[DIAMOND]</div>
+                    <div class="achievement-name">VIP Member</div>
+                    <div class="achievement-desc">Reach VIP Level 5</div>
+                    <div class="achievement-progress"><div class="achievement-progress-fill" style="width: 60%;"></div></div>
+                </div>
+                <div class="achievement locked">
+                    <div class="achievement-icon">[LOCK]</div>
+                    <div class="achievement-name">Jackpot Winner</div>
+                    <div class="achievement-desc">Hit the mega jackpot</div>
+                </div>
+                <div class="achievement locked">
+                    <div class="achievement-icon">[LOCK]</div>
+                    <div class="achievement-name">Daily Master</div>
+                    <div class="achievement-desc">Login 30 days straight</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referral Section -->
+        <div class="referral-section">
+            <h2>refer friends - earn mega rewards!</h2>
+            <p>Share your code and earn $50 for EVERY friend who signs up!</p>
+            <div class="referral-code" id="referralCode">WINNER-847293</div>
+            <button class="referral-btn" onclick="copyReferral()">copy referral code</button>
+            <div class="referral-rewards">
+                <div class="referral-tier">
+                    <div class="count">1 friend</div>
+                    <div class="reward">$50 bonus</div>
+                </div>
+                <div class="referral-tier">
+                    <div class="count">5 friends</div>
+                    <div class="reward">$500 bonus</div>
+                </div>
+                <div class="referral-tier">
+                    <div class="count">10 friends</div>
+                    <div class="reward">FREE iPhone!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Surveys -->
+        <div class="survey-box">
+            <h3>complete surveys for instant rewards</h3>
+            <ul class="survey-list">
+                <li onclick="startSurvey()">
+                    <span>quick 30-second survey</span>
+                    <span class="survey-reward">+$50</span>
+                </li>
+                <li onclick="startSurvey()">
+                    <span>consumer opinion survey</span>
+                    <span class="survey-reward">+$100</span>
+                </li>
+                <li onclick="startSurvey()">
+                    <span>product feedback survey</span>
+                    <span class="survey-reward">+FREE iPHONE</span>
+                </li>
+                <li onclick="startSurvey()">
+                    <span>lifestyle questionnaire</span>
+                    <span class="survey-reward">+$500</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Daily Bonus -->
+        <div class="daily-bonus">
+            <h3>mega daily bonus!</h3>
+            <p style="color: #fff;">you haven't claimed today's free bonus yet!</p>
+            <button class="bonus-btn" onclick="claimBonus()">claim $100 free credit</button>
+        </div>
+    </div>
+
+    <!-- Level Up Modal -->
+    <div class="levelup-overlay" id="levelupModal">
+        <div class="levelup-box">
+            <h2>LEVEL UP!</h2>
+            <div class="new-level" id="newLevel">LEVEL 4</div>
+            <p>You've unlocked new rewards and higher win rates!</p>
+            <p style="font-size: 0.8rem;">+500 BONUS COINS | +10 FREE SPINS | +VIP PERKS</p>
+            <button onclick="closeLevelUp()">CLAIM REWARDS!</button>
+        </div>
+    </div>
+
+    <script>
+var spins=3,slotSpins=3,diceRolls=5,spinning=false,coins=12500,gems=47,xp=6500,level=3,cardMins=4,cardSecs=59
+var names=["john","sarah","mike","emma","david","lisa","james","amy","chris","jennifer"]
+var actions=["just won $500!","claimed free iPhone!","won mystery box!","got $1000 cash!","won gift card!","hit the JACKPOT!"]
+
+function spinSlots(){if(spinning)return;if(slotSpins<=0){alert('No spins remaining!\n\nTo get more free spins, please verify your age with a credit card.');return}spinning=true;slotSpins--;document.getElementById('slotSpins').textContent=slotSpins;document.getElementById('slotResult').style.display='none';document.getElementById('slotNearMiss').style.display='none';var reels=['reel1','reel2','reel3'];reels.forEach(function(id){document.getElementById(id).classList.add('spinning')});var fs=[];reels.forEach(function(id,idx){setTimeout(function(){var r=document.getElementById(id);r.classList.remove('spinning');if(idx<2){fs.push('7');r.textContent='7'}else{if(Math.random()>0.7){fs.push('7');r.textContent='7'}else{var ns=['$','*','#'][Math.floor(Math.random()*3)];fs.push(ns);r.textContent=ns}}},1000+(idx*800))});setTimeout(function(){spinning=false;if(fs[0]===fs[1]&&fs[1]===fs[2]){document.getElementById('slotResult').textContent='*** JACKPOT! YOU WON $5,000! ***';document.getElementById('slotResult').style.display='block';triggerConfetti();addXP(500);showAchievement('Lucky Winner!')}else if(fs[0]===fs[1]){document.getElementById('slotNearMiss').style.display='block';document.getElementById('slotResult').textContent='You won $50! But you almost hit the JACKPOT!';document.getElementById('slotResult').style.display='block';addXP(50)}},3500)}
+
+function rollDice(){if(diceRolls<=0){alert('No rolls remaining!\n\nShare with 3 friends to get more free rolls!');return}diceRolls--;document.getElementById('diceRolls').textContent=diceRolls;document.getElementById('diceResult').style.display='none';var d1el=document.getElementById('dice1');var d2el=document.getElementById('dice2');d1el.classList.add('rolling');d2el.classList.add('rolling');setTimeout(function(){d1el.classList.remove('rolling');d2el.classList.remove('rolling');var d1,d2;if(Math.random()>0.4){d1=Math.floor(Math.random()*6)+1;d2=d1}else{d1=Math.floor(Math.random()*6)+1;d2=Math.floor(Math.random()*6)+1;if(d1===d2)d2=(d2%6)+1}d1el.textContent=d1;d2el.textContent=d2;var res=document.getElementById('diceResult');if(d1===d2&&d1===6){res.textContent='*** DOUBLE SIXES! YOU WON $1,000 JACKPOT! ***';res.style.background='#00ff00';triggerConfetti();addXP(200)}else if(d1===d2){res.textContent='DOUBLES! You won $'+(d1*50)+'!';res.style.background='#ffff00';addXP(50)}else{res.textContent='You rolled '+(d1+d2)+'. So close to doubles! Try again!';res.style.background='#ff6600'}res.style.display='block'},1500)}
+
+function flipCard(c){if(c.classList.contains('flipped'))return;c.classList.add('flipped');var prizes=['$50','$100','$250','$500','$1000'];var p=prizes[Math.floor(Math.random()*prizes.length)];c.textContent=p;triggerConfetti();addXP(25);showAchievement('Card Master!');setTimeout(function(){alert('CONGRATULATIONS!\n\nYou won '+p+'!\n\nClick "Claim Now" to add it to your account!')},500)}
+
+function generateLucky(){var balls=['ball1','ball2','ball3','ball4','ball5'];balls.forEach(function(id){document.getElementById(id).classList.add('generating');document.getElementById(id).textContent='?'});balls.forEach(function(id,idx){setTimeout(function(){var b=document.getElementById(id);b.classList.remove('generating');b.textContent=Math.floor(Math.random()*49)+1},500+(idx*400))});setTimeout(function(){document.getElementById('luckyResult').style.display='block';document.getElementById('luckyResult').textContent='LUCKY! You matched 3 numbers! You won $200!';triggerConfetti();addXP(100)},3000)}
+
+function spinMegaWheel(){if(spinning)return;if(spins<=0){alert('No spins remaining!\n\nTo get more free spins, please enter your credit card for "age verification"');return}spinning=true;spins--;document.getElementById('spinsLeft').textContent=spins;var wh=document.getElementById('megaWheel');var pr=document.getElementById('megaPrize');var rot=2000+Math.random()*2000;wh.style.transform='rotate('+rot+'deg)';pr.style.display='none';setTimeout(function(){var prizes=["YOU WON $1,000 CASH!","YOU WON FREE iPHONE 15!","YOU WON $500 GIFT CARD!","YOU WON MYSTERY PRIZE WORTH $2,000!","YOU WON $250 INSTANT CREDIT!","YOU WON LUXURY VACATION PACKAGE!"];pr.textContent=prizes[Math.floor(Math.random()*prizes.length)]+' Click CLAIM NOW!';pr.style.display='block';spinning=false;triggerConfetti();addXP(150)},5000)}
+
+function claimDaily(){triggerConfetti();showAchievement('Daily Streak: Day 5!');addXP(200);alert('DAY 5 CLAIMED!\n\n$100 added to your account!\n\n*** STREAK BONUS: 5x MULTIPLIER ***\n\nCome back tomorrow for even BIGGER rewards!')}
+function claimBonus(){triggerConfetti();addXP(100);alert('BONUS CLAIMED!\n\nTo withdraw your $100 credit, please provide your bank account details for "direct deposit".\n\n(Minimum withdrawal: $500)')}
+function startSurvey(){alert('LOADING SURVEY...\n\nPlease disable your ad blocker and enter your personal information to continue.\n\n(We definitely won\'t sell your data to third parties... probably)')}
+function copyReferral(){navigator.clipboard.writeText('WINNER-847293');alert('COPIED!\n\nShare this code with friends!\n\nYou currently have 0 referrals.\n\nGet 10 friends to join and win a FREE iPHONE!')}
+
+function addXP(amt){xp+=amt;coins+=amt*2;document.getElementById('vipXP').textContent=xp.toLocaleString();document.getElementById('totalCoins').textContent=coins.toLocaleString();document.getElementById('vipProgressFill').style.width=((xp%10000)/100)+'%';if(xp>=(level+1)*10000){level++;document.getElementById('vipLevel').textContent=level;document.getElementById('newLevel').textContent='LEVEL '+level;document.getElementById('levelupModal').style.display='flex'}}
+function closeLevelUp(){document.getElementById('levelupModal').style.display='none';triggerConfetti()}
+function showAchievement(txt){var p=document.getElementById('achievementPopup');document.getElementById('achievementText').textContent=txt;p.style.display='block';setTimeout(function(){p.style.display='none'},3000)}
+
+function triggerConfetti(){var cols=['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ffd700'];for(var i=0;i<50;i++){(function(i){setTimeout(function(){var c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=cols[Math.floor(Math.random()*cols.length)];c.style.width=(5+Math.random()*10)+'px';c.style.height=(5+Math.random()*10)+'px';document.body.appendChild(c);setTimeout(function(){c.remove()},3000)},i*30)})(i)}}
+
+setInterval(function(){cardSecs--;if(cardSecs<0){cardSecs=59;cardMins--}if(cardMins<0){cardMins=4;cardSecs=59}document.getElementById('cardTimer').textContent=String(cardMins).padStart(2,'0')+':'+String(cardSecs).padStart(2,'0')},1000)
+
+function addActivity(){var f=document.getElementById('activityFeed');var item=document.createElement('div');item.className='activity-item';item.innerHTML='<span>'+names[Math.floor(Math.random()*names.length)]+'</span> '+actions[Math.floor(Math.random()*actions.length)];f.insertBefore(item,f.firstChild);if(f.children.length>10)f.removeChild(f.lastChild)}
+for(var i=0;i<5;i++)addActivity()
+setInterval(addActivity,3000)
+setTimeout(function(){showAchievement('Welcome Back Bonus!')},5000)
+setTimeout(function(){showAchievement('Daily Streak Active!')},15000)
+document.addEventListener('contextmenu',function(e){e.preventDefault();alert('SECURITY ALERT!\n\nRight-click disabled to protect your winnings!')})
+    </script>
+</body>
+</html>
