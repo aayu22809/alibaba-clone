@@ -4,12 +4,13 @@
 	import LiveFeed from '$lib/components/LiveFeed.svelte';
 	import ClaimBox from '$lib/components/ClaimBox.svelte';
 	import TrustBadges from '$lib/components/TrustBadges.svelte';
+	import { base } from '$app/paths';
 
 	function claimPrize() {
 		alert(
 			'CONGRADULATIONS!!!\n\nYou are about to claim you FREE prize!!\n\nPlease enter your credit card informations on next page to verify your identitiy and pay $0.00 shpping fee.\n\nYour personal datas is 100% secure and protect!!\n\nTHIS IS TOTALY NOT A SCAM WE PROMISE!!\n\nClick OK to continu...'
 		);
-		window.location.href = '/claim';
+		window.location.href = `${base}/claim`;
 	}
 </script>
 

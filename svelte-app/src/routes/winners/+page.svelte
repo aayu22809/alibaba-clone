@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	function showProof() {
 		alert(
 			'PROOF LOADING...\n\n[Proof Document #847293]\n\nThis document proves that this person:\n• Won a real prize\n• Is a real person\n• Is not paid to say this\n• Definitely exists\n\nVERIFICATION: COMPLETE\n\nWant your own proof? Claim now!'
@@ -121,7 +123,7 @@
 			thousands of people are claiming prizes right now. don't miss out! (this is your last chance!)
 			(not clickbait!)
 		</p>
-		<a href="/claim" class="cta-btn">claim your free prize now</a>
+		<a href="{base}/claim" class="cta-btn">claim your free prize now</a>
 	</div>
 </div>
 

@@ -101,6 +101,28 @@ pnpm run preview
 - **Vite** - Build tool
 - **Static Adapter** - For static site generation
 
+## Deployment
+
+This site is configured for automatic deployment to GitHub Pages.
+
+### Quick Deploy
+
+1. Push to the `main` branch
+2. Enable GitHub Pages in Settings → Pages → Source: "GitHub Actions"
+3. The site will automatically deploy at `https://YOUR_USERNAME.github.io/alibaba-clone/`
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+### Manual Build
+
+```bash
+cd svelte-app
+pnpm install
+pnpm run build
+```
+
+The built files will be in `svelte-app/build/`.
+
 ## Educational Purpose
 
 This project demonstrates:
