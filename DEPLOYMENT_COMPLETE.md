@@ -28,7 +28,7 @@ Your Alibaba Scam Parody website has been successfully configured for GitHub Pag
 
 ### Step 1: Enable GitHub Pages
 
-1. Go to your GitHub repository: **https://github.com/magical-paperclip/alibaba-clone**
+1. Go to your GitHub repository: **https://github.com/aayu22809/alibaba-clone**
 2. Click on **Settings** (top navigation)
 3. Click on **Pages** (left sidebar)
 4. Under "Build and deployment":
@@ -50,7 +50,7 @@ You can also manually trigger it:
 
 Once deployed (takes 2-3 minutes), your site will be live at:
 
-**https://magical-paperclip.github.io/alibaba-clone/**
+**https://aayu22809.github.io/alibaba-clone/**
 
 ## 🔧 Troubleshooting
 
@@ -81,8 +81,8 @@ Once deployed (takes 2-3 minutes), your site will be live at:
 ## 📊 Deployment Status
 
 Check your deployment status:
-- **Actions**: https://github.com/magical-paperclip/alibaba-clone/actions
-- **Pages Settings**: https://github.com/magical-paperclip/alibaba-clone/settings/pages
+- **Actions**: https://github.com/aayu22809/alibaba-clone/actions
+- **Pages Settings**: https://github.com/aayu22809/alibaba-clone/settings/pages
 
 ## 🎨 Local Development
 
